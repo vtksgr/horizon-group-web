@@ -1,0 +1,148 @@
+//server\prisma\schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Admin Schema
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// contact schema
+model Contact {
+  id          Int          @id @default(autoincrement())
+  type        ContactType
+  firstName   String
+  lastName    String
+  email       String
+  phoneNumber String
+  postalCode  String
+  address     String
+  message     String
+
+  company     CompanyContact?
+  candidate   CandidateContact?
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([type])
+}
+
+model CompanyContact {
+  id                Int                 @id @default(autoincrement())
+  contactId         Int                 @unique
+  companyName       String
+  position          CompanyPosition
+  inquiryType       CompanyInquiryType
+
+  contact           Contact             @relation(fields: [contactId], references: [id], onDelete: Cascade)
+}
+
+model CandidateContact {
+  id                Int                   @id @default(autoincrement())
+  contactId         Int                   @unique
+  inquiryType       CandidateInquiryType
+  resumeUrl         String?
+
+  contact           Contact               @relation(fields: [contactId], references: [id], onDelete: Cascade)
+}
+
+enum ContactType {
+  COMPANY
+  CANDIDATE
+}
+
+enum CompanyPosition {
+  MANAGER
+  SECTION_CHIEF_MANAGER
+  CHIEF_SECTION_CHIEF
+  GENERAL_EMPLOYEE
+}
+
+enum CompanyInquiryType {
+  RECRUITMENT
+  INTERNATIONAL_STUDENT_SUPPORT
+  INTERPRETATION_TRANSLATION
+  SPECIFIED_SKILLED_WORKER
+  REGISTRATION_SUPPORT
+  EDUCATION_CONSULTING
+  OTHER
+}
+
+enum CandidateInquiryType {
+  INTERVIEWS_CONSULTATIONS
+  RECRUITMENT
+  ONLINE_CLASSES
+  SEMINAR_PARTICIPATION
+  JOB_HUNTING_SUPPORT
+  CAREER_CHANGE_SUPPORT
+  OTHER_SUPPORT
+}
+
+
+//Job schema
+enum JobStatus {
+  URGENT_HIRE
+  VACANCY_AVAILABLE
+}
+
+model Job {
+  id                Int        @id @default(autoincrement())
+  title             String
+  slug              String     @unique
+  status            JobStatus  @default(VACANCY_AVAILABLE)
+  companyName       String?
+  employmentType    String?
+  description       String?
+  skillsRequired    String?
+  workHours         String?
+  holidays          String?
+  salary            String?
+  location          String?
+  interviewDetails  String?
+
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@index([createdAt])
+}
+
+// Post Schema
+model Post {
+  id          Int          @id @default(autoincrement())
+  title       String
+  slug        String       @unique
+  excerpt     String?
+  content     String       @db.Text
+  featuredImg String?
+  categoryId  Int
+  category    Category     @relation(fields: [categoryId], references: [id])
+  status      PostStatus   @default(PUBLISHED)
+  publishedAt DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Category {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
+  posts     Post[]
+  createdAt DateTime @default(now())
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
