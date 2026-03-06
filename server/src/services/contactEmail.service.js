@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 
+
+
 const COMPANY_CONTACT_EMAIL = process.env.CONTACT_COMPANY_EMAIL || "contact@horizongroup.co.jp";
 const CANDIDATE_CONTACT_EMAIL = process.env.CONTACT_CANDIDATE_EMAIL || "recruit@horizongroup.co.jp";
 

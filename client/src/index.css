@@ -80,6 +80,7 @@
     font-weight: var(--fw-semibold);
     line-height: 1.2;
     color: #0d0f11;
+    margin-bottom: 24px;
   }
 
   h3 {
@@ -91,6 +92,7 @@
     font-size: var(--fs-h4);
     font-weight: var(--fw-semibold);
     color: #0d0f11;
+    margin-bottom: 24px;
   }
 
   h5 {
