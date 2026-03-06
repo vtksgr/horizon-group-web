@@ -30,6 +30,8 @@ model Contact {
   postalCode  String
   address     String
   message     String
+  isRead      Boolean      @default(false)
+  isArchived  Boolean      @default(false)
 
   company     CompanyContact?
   candidate   CandidateContact?
@@ -103,6 +105,7 @@ model Job {
   title             String
   slug              String     @unique
   status            JobStatus  @default(VACANCY_AVAILABLE)
+  isActive          Boolean    @default(true)
   companyName       String?
   employmentType    String?
   description       String?
@@ -121,19 +124,21 @@ model Job {
 
 // Post Schema
 model Post {
-  id          Int          @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   title       String
-  slug        String       @unique
+  slug        String     @unique
   excerpt     String?
-  content     String       @db.Text
-  featuredImg String?
+  content     String     @db.Text
+  bannerImg   String?
   categoryId  Int
-  category    Category     @relation(fields: [categoryId], references: [id])
-  status      PostStatus   @default(PUBLISHED)
-  publishedAt DateTime     @default(now())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  category    Category   @relation(fields: [categoryId], references: [id])
+  status      PostStatus @default(PUBLISHED)
+  publishedAt DateTime   @default(now())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
+
+
 
 model Category {
   id        Int     @id @default(autoincrement())

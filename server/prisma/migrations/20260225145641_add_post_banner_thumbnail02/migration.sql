@@ -1,0 +1,10 @@
+/*
+  Warnings:
+
+  - You are about to drop the column `featuredImg` on the `Post` table. All the data in the column will be lost.
+
+*/
+-- AlterTable
+ALTER TABLE "Post" DROP COLUMN "featuredImg",
+ADD COLUMN     "bannerImg" TEXT,
+ADD COLUMN     "thumbnailImg" TEXT;
