@@ -4,6 +4,7 @@ import HeroSection from "./sections/HeroSection";
 import OurVision from "./sections/OurVision";
 import OurStrength from "./sections/OurStrength";
 import ServiceSection from "./sections/ServiceSection";
+import CareerAcademy from "./sections/CareerAcademy";
 
 
 export default function Home() {
@@ -28,6 +29,9 @@ export default function Home() {
         </div>
         <div className="my-32">
           <ServiceSection />
+        </div>
+        <div className="my-32">
+          <CareerAcademy />
         </div>
       </main>
     </>
