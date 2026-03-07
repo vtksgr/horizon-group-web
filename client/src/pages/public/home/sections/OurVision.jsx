@@ -42,7 +42,7 @@ export default function OurVision() {
                     <div className="flex justify-start sm:justify-end">
                         <Link
                             to="/about"
-                            className="link text-[#0080FF] text-right hover:!text-[#00B1E6] inline-flex items-center gap-2"
+                            className="link text-[#0080FF] text-right hover:!text-[var(--color-primary)] inline-flex items-center gap-2"
                         >
                             私たちについて <FaArrowRight />
                         </Link>
@@ -53,3 +53,4 @@ export default function OurVision() {
         </section>
     );
 }
+

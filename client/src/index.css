@@ -23,10 +23,12 @@
   --color-primary: #00b1e6;
   --color-primary-hover: #0099c7;
 
-  --color-dark: #595D61;
+  --color-dark: #0D0F11;
   --color-text-secondary: #4b5563;
   --color-border: #e5e7eb;
   --color-background: #ffffff;
+
+--text-color: #595D61
 }
 
 @layer base {
@@ -41,12 +43,13 @@
   #root {
     margin: 0;
     min-height: 100%;
+    
   }
 
   html {
     font-family: var(--font-sans);
     font-size: 16px;
-    color: var(--color-dark);
+    color: var(--text-color);
     background-color: var(--color-background);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -84,6 +87,7 @@
   }
 
   h3 {
+    color: #0d0f11;
     font-size: var(--fs-h3);
     font-weight: var(--fw-semibold);
   }

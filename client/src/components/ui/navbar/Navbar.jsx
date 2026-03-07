@@ -1,7 +1,7 @@
 // client/src/components/public/Navbar.jsx
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/react.svg"; // replace with your real logo file
+import logo from "../../../assets/react.svg"; // replace with your real logo file
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function Navbar() {
                         <span className="text-2xl font-extrabold text-[#0D0F11] tracking-wide pr-2 hidden md:block">
                             HORIZON
                         </span>
-                        <span className="text-2xl font-extrabold text-[#00B1E6] tracking-wide hidden md:block">
+                        <span className="text-2xl font-extrabold text-[var(--color-primary)] tracking-wide hidden md:block">
                             GROUP
                         </span>
                     </Link>
@@ -54,7 +54,7 @@ export default function Navbar() {
                     <li><Link to="/blogs_item" className="nav-link transition-all duration-200 ease-in-out">お知らせ</Link></li>
                                         <li><Link to="/about" className="nav-link transition-all duration-200 ease-in-out">私たちについて</Link></li>
                     <li><Link to="/faq" className="nav-link transition-all duration-200 ease-in-out">FAQ</Link></li>
-                    <li><Link to="/about" className="nav-link transition-all duration-200 ease-in-out">会社概要</Link></li>
+                    <li><Link to="/company_profile" className="nav-link transition-all duration-200 ease-in-out">{"\u4f1a\u793e\u6982\u8981"}</Link></li>
 
                 </ul>
             </div>
@@ -72,8 +72,13 @@ export default function Navbar() {
                 <li><Link to="/career_academy">教育業務</Link></li>
                 <li><Link to="/blogs_item">お知らせ</Link></li>
                 <li><Link to="/faq">FAQ</Link></li>
+                <li><Link to="/company_profile">{"\u4f1a\u793e\u6982\u8981"}</Link></li>
                 <li><Link to="/contact">お問い合わせ</Link></li>
             </ul>
         </nav>
     );
 }
+
+
+
+

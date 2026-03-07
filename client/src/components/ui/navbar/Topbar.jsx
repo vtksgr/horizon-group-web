@@ -6,7 +6,7 @@ const LANGUAGES = [
   { code: "ja", label: "\u65e5\u672c\u8a9e" },
 ];
 
-export default function TopBar() {
+export default function Topbar() {
   const [currentLang, setCurrentLang] = useState("ja");
 
   const toggleLanguage = () => {
