@@ -27,7 +27,7 @@ const cards = [
 
 
 
-export default function CareerAcadamy() {
+export default function CareerAcademy() {
     return (
         <section className="xl:w-[75%] xl:mx-auto px-4 lg:px-6 xl:px-0 py-10">
             <h2 className="text-center font-semibold tracking-tight text-[#0D0F11]">
@@ -55,7 +55,7 @@ export default function CareerAcadamy() {
                                 {card.subheading}
                             </h6>
 
-                            <h5 className="font-bold text-[#3A3F44] mb-6">{card.title}</h5>
+                            <h5 className="font-bold text-[var(--color-dark)] mb-6">{card.title}</h5>
 
                             <p className="text-gray-600 flex-grow">{card.description}</p>
 
@@ -78,3 +78,4 @@ export default function CareerAcadamy() {
         </section>
     )
 }
+

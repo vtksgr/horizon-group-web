@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 import desktopHeroImg from "@assets/images/common/desktop-hero-img.jpg";
@@ -87,7 +87,7 @@ export default function HeroSection() {
         <div className="shrink-0 md:border-l md:border-gray-300 md:pl-4">
           <a
             href="#"
-            className="inline-flex items-center gap-1 text-[10px] text-[#0080FF] transition-all duration-200 ease-in-out hover:text-[#00B1E6] sm:text-xs"
+            className="inline-flex items-center gap-1 text-[10px] text-[#0080FF] transition-all duration-200 ease-in-out hover:text-[var(--color-primary)] sm:text-xs"
           >
             すべてを見る <FaArrowRightLong />
           </a>
@@ -127,4 +127,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
 
