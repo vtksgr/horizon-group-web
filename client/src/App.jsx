@@ -8,7 +8,8 @@ import Home from "./pages/public/home/Home";
 import Careers from "./pages/public/Careers";
 import CompanyProfile from "./pages/public/CompanyProfile";
 import PrivacyPolicy from "./pages/public/PrivacyPolicy";
-import FAQ from "./pages/public/FAQ";
+import Faq from "../src/pages/public/Faq"
+import { adminRoutes } from "./routes/AdminRoutes";
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
           <Route path="/career_academy" element={<Careers />} />
           <Route path="/company_profile" element={<CompanyProfile />} />
           <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-          <Route path="/faq" element={<FAQ />} />
+          <Route path="/faq" element={<Faq />} />
         </Route>
+        {adminRoutes}
       </Routes>
     </BrowserRouter>
   );

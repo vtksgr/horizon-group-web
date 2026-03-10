@@ -1,11 +1,13 @@
 ﻿import { FaCheck } from "react-icons/fa6";
 import { BsFillBuildingsFill, BsPeopleFill, BsTranslate } from "react-icons/bs";
+import { FaLaptopCode } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
 // IMAGE
 import hbBuilding from "@assets/images/common/hb-building-img.jpg";
 import hbBusiness from "@assets/images/common/hb-business-img.jpg";
 import hbStudent from "@assets/images/common/hb-student.jpg";
 import hbTranslation from "@assets/images/common/hg-translation.jpg";
+import webDevelopment from "@assets/images/common/web-development.jpg";
 
 
 
@@ -41,11 +43,11 @@ export default function ServiceSection() {
                         </div>
                     </div>
                     <div className="md:w-7/12 p-6">
-                            <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                                <span className="p-2 bg-blue-200 rounded"><BsFillBuildingsFill className="text-[var(--color-primary)] text-lg" /></span>
-                                FOR COMPANY{" "}
-                                <span className="text-[var(--color-primary)]">企業様向け</span>
-                            </h4>
+                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
+                            <span className="p-2 bg-blue-200 rounded"><BsFillBuildingsFill className="text-[var(--color-primary)] text-lg" /></span>
+                            FOR COMPANY{" "}
+                            <span className="text-[var(--color-primary)]">企業様向け</span>
+                        </h4>
                         <p className="my-4 font-medium">外国籍人材の採用をご検討中の企業様に、以下のサポートを提供します：</p>
                         <ul className="space-y-2">
                             <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>採用ニーズに合った外国籍人材のご紹介</span></li>
@@ -68,11 +70,11 @@ export default function ServiceSection() {
                         </div>
                     </div>
                     <div className="md:w-7/12 p-6">
-                            <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                                <span className="p-2 bg-blue-200 rounded"><BsPeopleFill className="text-[var(--color-primary)] text-lg" /></span>
-                                FOR JOB SEEKERS{" "}
-                                <span className="text-[var(--color-primary)]">求職者様向け</span>
-                            </h4>
+                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
+                            <span className="p-2 bg-blue-200 rounded"><BsPeopleFill className="text-[var(--color-primary)] text-lg" /></span>
+                            FOR JOB SEEKERS{" "}
+                            <span className="text-[var(--color-primary)]">求職者様向け</span>
+                        </h4>
                         <p className="mb-4 font-medium">日本で働きたい外国籍求職者の皆様に、安心して就職できるよう全面的に支援します：</p>
                         <ul className="space-y-2">
                             <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>外国籍の方を積極的に採用している企業の紹介</span></li>
@@ -102,11 +104,11 @@ export default function ServiceSection() {
                         </div>
                     </div>
                     <div className="md:w-7/12 p-6">
-                            <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                                <span className="p-2 bg-blue-200 rounded"><FaGraduationCap className="text-[var(--color-primary)] text-lg" /></span>
-                                FOR STUDENT{" "}
-                                <span className="text-[var(--color-primary)]">提供サービス：</span>
-                            </h4>
+                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
+                            <span className="p-2 bg-blue-200 rounded"><FaGraduationCap className="text-[var(--color-primary)] text-lg" /></span>
+                            FOR STUDENT{" "}
+                            <span className="text-[var(--color-primary)]">提供サービス：</span>
+                        </h4>
                         <ul className="space-y-2">
                             <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>日本語学校、専門学校、大学の紹介</span></li>
                             <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>入学手続きや必要書類の準備支援</span></li>
@@ -137,17 +139,58 @@ export default function ServiceSection() {
                         </div>
                     </div>
                     <div className="md:w-7/12 p-6">
-                            <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                                <span className="p-2 bg-blue-200 rounded"><BsTranslate className="text-[var(--color-primary)] text-lg" /></span>
-                                LANGUAGE SUPPORT{" "}
-                                <span className="text-[var(--color-primary)]">対応言語：</span>
-                            </h4>
+                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
+                            <span className="p-2 bg-blue-200 rounded"><BsTranslate className="text-[var(--color-primary)] text-lg" /></span>
+                            LANGUAGE SUPPORT{" "}
+                            <span className="text-[var(--color-primary)]">対応言語：</span>
+                        </h4>
                         <p className="mb-4 font-medium">日本語、 英語、 韓国語、 ネパール語、 ヒンディー語</p>
                         <ul className="space-y-2">
                             <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
                                 通訳： ビジネス会議、商談、医療現場、教育現場、行政手続きなど</li>
                             <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
                                 翻訳： 契約書、会社案内、マニュアル、WEBコンテンツ、履歴書など</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {/* WEB制作・デザインサービス */}
+            <div className="mt-24">
+                <div className="mb-9">
+                    <h4 className="border-l-4 border-[var(--color-primary)] pl-4">WEB制作・デザインサービス</h4>
+                    <p className="md:pl-6">企業や個人事業主の皆様のオンラインプレゼンス向上をサポートするため、WEB制作およびデザインサービスを提供しています。ホームページ制作から印刷物デザインまで、ビジネスに必要なデジタル・クリエイティブサービスを幅広く対応可能です。</p>
+                </div>
+                <div className="flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
+                    <div className="md:w-5/12 p-4 md:flex">
+                        <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
+                            <img
+                                src={webDevelopment}
+                                alt="翻訳・通訳サービスのイメージ"
+                                className="w-full h-56 sm:h-72 md:h-full object-cover"
+                            />
+                        </div>
+                    </div>
+                    <div className="md:w-7/12 p-6">
+                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
+                            <span className="p-2 bg-blue-200 rounded"><FaLaptopCode className="text-[var(--color-primary)] text-lg" /></span>
+                            DIGITAL & DESIGN SUPPORT{" "}
+                            <span className="text-[var(--color-primary)]">提供サービス：</span>
+                        </h4>
+                        <p className="mb-4 font-medium">WEBサイト制作、WEBアプリケーション開発、オンラインストア制作、WEBデザイン、パンフレット制作・印刷、名刺デザイン・印刷</p>
+                        <ul className="space-y-2">
+                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
+                                WEB制作： 企業ホームページ、ランディングページ、レスポンシブサイト制作</li>
+                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
+                                WEBアプリ開発： 業務管理システム、予約システム、カスタムWEBアプリ</li>
+                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
+                                オンラインストア： ECサイト構築、商品管理、オンライン販売サポート</li>
+                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
+                                WEBデザイン： UIデザイン、ブランドに合わせたWEBデザイン制作</li>
+                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
+                                パンフレット制作： プロモーション用パンフレットのデザイン・印刷</li>
+                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
+                                名刺制作： オリジナル名刺デザインおよび高品質印刷</li>
                         </ul>
                     </div>
                 </div>
