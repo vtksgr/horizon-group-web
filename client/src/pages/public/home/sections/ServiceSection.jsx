@@ -1,200 +1,195 @@
-﻿import { FaCheck } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
 import { BsFillBuildingsFill, BsPeopleFill, BsTranslate } from "react-icons/bs";
-import { FaLaptopCode } from "react-icons/fa";
-import { FaGraduationCap } from "react-icons/fa6";
-// IMAGE
+import { FaLaptopCode, FaGraduationCap } from "react-icons/fa";
+
 import hbBuilding from "@assets/images/common/hb-building-img.jpg";
 import hbBusiness from "@assets/images/common/hb-business-img.jpg";
 import hbStudent from "@assets/images/common/hb-student.jpg";
 import hbTranslation from "@assets/images/common/hg-translation.jpg";
 import webDevelopment from "@assets/images/common/web-development.jpg";
+import useLocalizedCopy from "../../../../hooks/useLocalizedCopy";
 
+const copy = {
+  ja: {
+    subtitle: "当社サービス",
+    sections: [
+      {
+        title: "人材紹介サービス",
+        desc: "日本で働きたい外国人と、優秀な人材を求める企業をつなぎます。採用前後を一貫してサポートします。",
+        image: hbBuilding,
+        icon: BsFillBuildingsFill,
+        heading: "FOR COMPANY 企業様向け",
+        bullets: [
+          "採用ニーズに合った外国籍人材のご紹介",
+          "採用手続き・面接対応の支援",
+          "就労ビザ取得・変更手続きのサポート",
+        ],
+      },
+      {
+        title: "求職者向けサポート",
+        desc: "外国籍求職者が安心して就職できるよう、応募から入社まで丁寧に支援します。",
+        image: hbBusiness,
+        icon: BsPeopleFill,
+        heading: "FOR JOB SEEKERS 求職者様向け",
+        bullets: [
+          "外国人採用に積極的な企業の紹介",
+          "応募・面接準備のアドバイス",
+          "入社後フォローアップ",
+        ],
+      },
+      {
+        title: "留学生サポートサービス",
+        desc: "学校選びから入学、生活支援、就職支援までトータルでサポートします。",
+        image: hbStudent,
+        icon: FaGraduationCap,
+        heading: "FOR STUDENT 提供サービス",
+        bullets: [
+          "日本語学校・専門学校・大学の紹介",
+          "学生ビザ申請と更新支援",
+          "来日後の生活支援と進路相談",
+        ],
+      },
+      {
+        title: "翻訳・通訳サービス",
+        desc: "ビジネス、教育、医療など多様な場面で高品質な言語サポートを提供します。",
+        image: hbTranslation,
+        icon: BsTranslate,
+        heading: "LANGUAGE SUPPORT 対応言語",
+        bullets: ["日本語・英語・ネパール語など多言語対応", "会議通訳、文書翻訳、WEBコンテンツ翻訳", "業務用途に合わせた専門対応"],
+      },
+      {
+        title: "WEB制作・デザインサービス",
+        desc: "Webサイト制作からデザイン制作まで、オンライン発信を包括的に支援します。",
+        image: webDevelopment,
+        icon: FaLaptopCode,
+        heading: "DIGITAL & DESIGN SUPPORT 提供サービス",
+        bullets: [
+          "Webサイト・Webアプリ制作",
+          "ECサイト構築と運用支援",
+          "パンフレット・名刺などのデザイン制作",
+        ],
+      },
+    ],
+  },
+  en: {
+    subtitle: "Our Services",
+    sections: [
+      {
+        title: "Recruitment Services",
+        desc: "We connect international talent who want to work in Japan with companies seeking skilled professionals, and support the process end-to-end.",
+        image: hbBuilding,
+        icon: BsFillBuildingsFill,
+        heading: "FOR COMPANY",
+        bullets: [
+          "Candidate matching based on your hiring needs",
+          "Support for hiring process and interviews",
+          "Work visa application and status-change support",
+        ],
+      },
+      {
+        title: "Support for Job Seekers",
+        desc: "We provide practical guidance from application to onboarding so international job seekers can work in Japan with confidence.",
+        image: hbBusiness,
+        icon: BsPeopleFill,
+        heading: "FOR JOB SEEKERS",
+        bullets: [
+          "Access to companies actively hiring international talent",
+          "Application and interview preparation support",
+          "Post-placement follow-up",
+        ],
+      },
+      {
+        title: "International Student Support",
+        desc: "We provide total support from school selection and admission to life support and career planning in Japan.",
+        image: hbStudent,
+        icon: FaGraduationCap,
+        heading: "FOR STUDENTS",
+        bullets: [
+          "Introduction to language schools, colleges, and universities",
+          "Student visa application and renewal support",
+          "Life support and career consultation after arrival",
+        ],
+      },
+      {
+        title: "Translation and Interpretation",
+        desc: "We provide high-quality language support for business, education, healthcare, and more.",
+        image: hbTranslation,
+        icon: BsTranslate,
+        heading: "LANGUAGE SUPPORT",
+        bullets: [
+          "Multilingual coverage including Japanese, English, and Nepali",
+          "Interpretation for meetings and on-site communication",
+          "Translation for documents and web content",
+        ],
+      },
+      {
+        title: "Web Production and Design",
+        desc: "From websites to digital design, we help improve your online presence and business communication.",
+        image: webDevelopment,
+        icon: FaLaptopCode,
+        heading: "DIGITAL & DESIGN SUPPORT",
+        bullets: [
+          "Website and web application development",
+          "E-commerce site setup and support",
+          "Design production for brochures and business cards",
+        ],
+      },
+    ],
+  },
+};
 
+function ServiceCard({ section }) {
+  return (
+    <div className="mt-10">
+      <div className="mb-6">
+        <h4 className="border-l-4 border-[var(--color-primary)] pl-4">{section.title}</h4>
+        <p className="md:pl-6">{section.desc}</p>
+      </div>
+
+      <div className="flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
+        <div className="md:w-5/12 p-4 md:flex">
+          <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
+            <img src={section.image} alt={section.title} className="w-full h-56 sm:h-72 md:h-full object-cover" />
+          </div>
+        </div>
+
+        <div className="md:w-7/12 p-6">
+          <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
+            <span className="p-2 bg-blue-200 rounded">
+              <section.icon className="text-[var(--color-primary)] text-lg" />
+            </span>
+            {section.heading}
+          </h4>
+
+          <ul className="space-y-2 mt-4">
+            {section.bullets.map((bullet) => (
+              <li key={bullet} className="flex items-start gap-2">
+                <span className="mt-1 shrink-0">
+                  <FaCheck className="text-[var(--color-primary)]" />
+                </span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ServiceSection() {
-    return (
-        <section className="w-full xl:w-[75%] px-4 sm:px-6 lg:px-8 xl:px-0 mx-auto">
-            {/* Title */}
-            <div className="text-center">
-                <h2 className="font-bold mb-2 sec-title">
-                    SERVICE
-                </h2>
-                <h6 className="text-base md:text-lg font-medium mb-8">
-                    当社サービス
-                </h6>
-            </div>
+  const t = useLocalizedCopy(copy);
 
-            {/* 人材紹介サービス */}
-            <div className="mt-9">
-                <div className="mb-9">
-                    <h4 className="border-l-4 border-[var(--color-primary)] pl-4">人材紹介サービス</h4>
-                    <p className="md:pl-6">私たちは、日本で働きたい外国人と、優秀な人材を求める企業様をつなぐ人材紹介サービスを展開しています。採用から就労まで、すべてのステップ
-                        で丁寧かつ的確にサポートいたします。</p>
-                </div>
+  return (
+    <section className="w-full xl:w-[75%] px-4 sm:px-6 lg:px-8 xl:px-0 mx-auto">
+      <div className="text-center">
+        <h2 className="font-bold mb-2 sec-title">SERVICE</h2>
+        <h6 className="text-base md:text-lg font-medium mb-8">{t.subtitle}</h6>
+      </div>
 
-                <div className="flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
-                    <div className="md:w-5/12 p-4 md:flex">
-                        <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
-                            <img
-                                src={hbBuilding}
-                                alt="人材紹介サービスのイメージ"
-                                className="w-full h-56 sm:h-72 md:h-full object-cover"
-                            />
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 p-6">
-                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                            <span className="p-2 bg-blue-200 rounded"><BsFillBuildingsFill className="text-[var(--color-primary)] text-lg" /></span>
-                            FOR COMPANY{" "}
-                            <span className="text-[var(--color-primary)]">企業様向け</span>
-                        </h4>
-                        <p className="my-4 font-medium">外国籍人材の採用をご検討中の企業様に、以下のサポートを提供します：</p>
-                        <ul className="space-y-2">
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>採用ニーズに合った外国籍人材のご紹介</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>採用に関する手続きや対応の全面サポート</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>外国籍人材との面談・面接支援</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>異文化理解・職場定着に向けたコンサルティング</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>就労ビザ取得・変更に伴う書類作成・手続きサポート</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="mt-4 flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
-                    <div className="md:w-5/12 p-4 md:flex">
-                        <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
-                            <img
-                                src={hbBusiness}
-                                alt="求職者向けサポートのイメージ"
-                                className="w-full h-56 sm:h-72 md:h-full object-cover"
-                            />
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 p-6">
-                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                            <span className="p-2 bg-blue-200 rounded"><BsPeopleFill className="text-[var(--color-primary)] text-lg" /></span>
-                            FOR JOB SEEKERS{" "}
-                            <span className="text-[var(--color-primary)]">求職者様向け</span>
-                        </h4>
-                        <p className="mb-4 font-medium">日本で働きたい外国籍求職者の皆様に、安心して就職できるよう全面的に支援します：</p>
-                        <ul className="space-y-2">
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>外国籍の方を積極的に採用している企業の紹介</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>希望に合った職場への応募・採用サポート</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>日本の就職マナーや面接準備に関するアドバイス</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>面接時の同席・フォローアップ</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>就労ビザの取得・変更に関する手続きサポート</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            {/* 留学生サポートサービス */}
-            <div className="mt-24">
-                <div className="mb-9">
-                    <h4 className="border-l-4 border-[var(--color-primary)] pl-4">留学生サポートサービス</h4>
-                    <p className="md:pl-6">日本への留学を希望される外国人の方に対し、学校選びから入学、生活支援、就労支援まで、トータルでサポートいたします</p>
-                </div>
-                <div className="flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
-                    <div className="md:w-5/12 p-4 md:flex">
-                        <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
-                            <img
-                                src={hbStudent}
-                                alt="留学生サポートサービスのイメージ"
-                                className="w-full h-56 sm:h-72 md:h-full object-cover"
-                            />
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 p-6">
-                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                            <span className="p-2 bg-blue-200 rounded"><FaGraduationCap className="text-[var(--color-primary)] text-lg" /></span>
-                            FOR STUDENT{" "}
-                            <span className="text-[var(--color-primary)]">提供サービス：</span>
-                        </h4>
-                        <ul className="space-y-2">
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>日本語学校、専門学校、大学の紹介</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>入学手続きや必要書類の準備支援</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>学生ビザ申請および更新サポート</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>来日後の生活支援（住居探し、携帯契約、銀行口座開設など）</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>アルバイトや卒業後の就職活動支援</span></li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span><span>メンタル・文化適応に関する相談受付</span></li>
-                        </ul>
-                        <p className="my-4 font-medium">留学生の皆様が安心して学び、成長できる環境づくりをお手伝いいたします。</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* 翻訳・通訳サービス */}
-            <div className="mt-24">
-                <div className="mb-9">
-                    <h4 className="border-l-4 border-[var(--color-primary)] pl-4">翻訳・通訳サービス</h4>
-                    <p className="md:pl-6">多言語対応が求められるさまざまなシーンにおいて、質の高い翻訳・通訳サービスを提供しています。ビジネスから医療、教育、行政まで、幅広く対応可能です。</p>
-                </div>
-                <div className="flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
-                    <div className="md:w-5/12 p-4 md:flex">
-                        <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
-                            <img
-                                src={hbTranslation}
-                                alt="翻訳・通訳サービスのイメージ"
-                                className="w-full h-56 sm:h-72 md:h-full object-cover"
-                            />
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 p-6">
-                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                            <span className="p-2 bg-blue-200 rounded"><BsTranslate className="text-[var(--color-primary)] text-lg" /></span>
-                            LANGUAGE SUPPORT{" "}
-                            <span className="text-[var(--color-primary)]">対応言語：</span>
-                        </h4>
-                        <p className="mb-4 font-medium">日本語、 英語、 韓国語、 ネパール語、 ヒンディー語</p>
-                        <ul className="space-y-2">
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                通訳： ビジネス会議、商談、医療現場、教育現場、行政手続きなど</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                翻訳： 契約書、会社案内、マニュアル、WEBコンテンツ、履歴書など</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            {/* WEB制作・デザインサービス */}
-            <div className="mt-24">
-                <div className="mb-9">
-                    <h4 className="border-l-4 border-[var(--color-primary)] pl-4">WEB制作・デザインサービス</h4>
-                    <p className="md:pl-6">企業や個人事業主の皆様のオンラインプレゼンス向上をサポートするため、WEB制作およびデザインサービスを提供しています。ホームページ制作から印刷物デザインまで、ビジネスに必要なデジタル・クリエイティブサービスを幅広く対応可能です。</p>
-                </div>
-                <div className="flex flex-col md:flex-row md:items-stretch border border-gray-300 rounded-lg shadow-sm">
-                    <div className="md:w-5/12 p-4 md:flex">
-                        <div className="overflow-hidden rounded-xl shadow-md md:flex-1">
-                            <img
-                                src={webDevelopment}
-                                alt="翻訳・通訳サービスのイメージ"
-                                className="w-full h-56 sm:h-72 md:h-full object-cover"
-                            />
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 p-6">
-                        <h4 className="font-semibold pb-2 flex items-start gap-2 border-b border-gray-300">
-                            <span className="p-2 bg-blue-200 rounded"><FaLaptopCode className="text-[var(--color-primary)] text-lg" /></span>
-                            DIGITAL & DESIGN SUPPORT{" "}
-                            <span className="text-[var(--color-primary)]">提供サービス：</span>
-                        </h4>
-                        <p className="mb-4 font-medium">WEBサイト制作、WEBアプリケーション開発、オンラインストア制作、WEBデザイン、パンフレット制作・印刷、名刺デザイン・印刷</p>
-                        <ul className="space-y-2">
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                WEB制作： 企業ホームページ、ランディングページ、レスポンシブサイト制作</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                WEBアプリ開発： 業務管理システム、予約システム、カスタムWEBアプリ</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                オンラインストア： ECサイト構築、商品管理、オンライン販売サポート</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                WEBデザイン： UIデザイン、ブランドに合わせたWEBデザイン制作</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                パンフレット制作： プロモーション用パンフレットのデザイン・印刷</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 shrink-0"><FaCheck className="text-[var(--color-primary)]" /></span>
-                                名刺制作： オリジナル名刺デザインおよび高品質印刷</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
+      {t.sections.map((section) => (
+        <ServiceCard key={section.title} section={section} />
+      ))}
+    </section>
+  );
 }

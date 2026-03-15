@@ -57,6 +57,59 @@ export const createPost = async (req, res) => {
         });
     }
 };
+// Get post for admin
+export const getAdminPostById = async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid post id",
+            });
+        }
+
+        const post = await prisma.post.findUnique({
+            where: { id },
+            include: { category: true },
+        });
+
+        if (!post) {
+            logger.warn("admin_post_detail_not_found", {
+                adminId: req.admin?.id || null,
+                postId: id,
+            });
+
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
+
+        logger.info("admin_post_detail_viewed", {
+            adminId: req.admin?.id || null,
+            postId: id,
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: post,
+        });
+    } catch (error) {
+        logger.error("admin_post_detail_error", {
+            adminId: req.admin?.id || null,
+            postId: req.params.id || null,
+            message: error.message,
+            stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+        });
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
+
 
 // GET ALL POSTS (public + admin list)
 export const getAllPosts = async (req, res) => {

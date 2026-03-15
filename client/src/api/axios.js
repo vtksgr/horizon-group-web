@@ -28,6 +28,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error?.response?.status === 401) {
+      localStorage.removeItem("admin_token");
+      window.location.href = "/admin/login";
+    }
+
     const message =
       error?.response?.data?.message ||
       error?.response?.data?.error ||

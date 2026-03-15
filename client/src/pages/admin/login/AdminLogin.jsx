@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { isAdminAuthenticated, setAdminToken } from "../auth/authStorage";
 import api from "../../../api/axios";
 
@@ -97,6 +97,13 @@ export default function AdminLogin() {
       >
         {loading ? "Signing in..." : "Sign in"}
       </button>
+
+      <Link
+        to="/"
+        className="mt-4 block text-center text-sm font-medium text-slate-600 transition hover:text-slate-900"
+      >
+        Return to home page
+      </Link>
     </form>
   </div>
 </div>

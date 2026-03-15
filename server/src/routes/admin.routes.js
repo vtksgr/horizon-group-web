@@ -13,6 +13,7 @@ import {
   updatePost,
   deletePost,
   getAllPosts,
+  getAdminPostById,
 } from "../controllers/post.controller.js";
 import {
   createJob,
@@ -36,8 +37,11 @@ router.patch("/contacts/:id/status", protectAdmin, updateAdminContactStatus);
 // Admin posts
 router.post("/posts", protectAdmin, uploadPostImages, createPost);
 router.get("/posts", protectAdmin, getAllPosts);
+router.get("/posts/:id", protectAdmin, getAdminPostById);
 router.put("/posts/:id", protectAdmin, uploadPostImages, updatePost);
 router.delete("/posts/:id", protectAdmin, deletePost);
+
+
 
 // Admin jobs
 router.post("/jobs", protectAdmin, createJob);

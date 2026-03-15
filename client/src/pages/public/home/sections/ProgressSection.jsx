@@ -1,16 +1,27 @@
 import { useEffect, useRef, useState } from "react";
+import useLocalizedCopy from "../../../../hooks/useLocalizedCopy";
+
+const copy = {
+    ja: {
+        labels: ["卒業生数", "就職成功率", "対応業種", "対応言語"],
+    },
+    en: {
+        labels: ["Graduates", "Placement Rate", "Industries", "Supported Languages"],
+    },
+};
 
 
 export default function ProgressSection({ className = "" }) {
+    const t = useLocalizedCopy(copy);
 
     const counterSection = useRef(null);
     const [hasAnimated, setHasAnimated] = useState(false);
 
     const counters = [
-        { value: 500, sign: "+", label: "卒業生数" },
-        { value: 85, sign: "%", label: "就職成功率" },
-        { value: 20, sign: "+", label: "対応業種" },
-        { value: 15, sign: "", label: "対応言語" },
+        { value: 500, sign: "+", label: t.labels[0] },
+        { value: 85, sign: "%", label: t.labels[1] },
+        { value: 20, sign: "+", label: t.labels[2] },
+        { value: 15, sign: "", label: t.labels[3] },
     ];
 
     const [displayValues, setDisplayValues] = useState([0, 0, 0, 0]);

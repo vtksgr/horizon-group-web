@@ -1,20 +1,14 @@
-import { useState } from "react";
 import { FaFacebookF, FaTiktok, FaXTwitter } from "react-icons/fa6";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const LANGUAGES = [
-  { code: "eng", label: "Eng" },
   { code: "ja", label: "\u65e5\u672c\u8a9e" },
+  { code: "en", label: "English" },
 ];
 
 export default function Topbar() {
-  const [currentLang, setCurrentLang] = useState("ja");
-
-  const toggleLanguage = () => {
-    setCurrentLang((prev) => (prev === "eng" ? "ja" : "eng"));
-  };
-
-  const languageLabel =
-    LANGUAGES.find((lang) => lang.code === currentLang)?.label || "Eng";
+  const { language, setLanguage } = useLanguage();
+  const selectorLabel = language === "en" ? "Language selector" : "言語選択";
 
   return (
     <div className="bg-[#00B1E6] text-white text-sm flex justify-between items-center h-9 px-4 md:px-8 fixed top-0 left-0 w-full z-[1001]">
@@ -50,12 +44,18 @@ export default function Topbar() {
           <FaXTwitter />
         </a>
 
-        <button
-          onClick={toggleLanguage}
-          className="w-14 text-center hover:underline whitespace-nowrap shrink-0"
+        <select
+          aria-label={selectorLabel}
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          className="rounded border border-white/30 bg-transparent px-2 py-0.5 text-xs text-white focus:outline-none"
         >
-          {languageLabel}
-        </button>
+          {LANGUAGES.map((lang) => (
+            <option key={lang.code} value={lang.code} className="text-slate-900">
+              {lang.label}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

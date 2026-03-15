@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { clearAdminToken } from "../auth/authStorage";
+import { Link } from "react-router-dom";
+import LogoutButton from "../../../components/admin/LogoutButton";
 
 // Dashboard action and card icons from Font Awesome via react-icons.
 import {
@@ -25,34 +25,22 @@ const dashboardCards = [
     Icon: FaBriefcase,
     title: "Job",
     description: "Add or edit job listings.",
-    href: "/admin/jobs/new",
+    href: "/admin/jobs",
   },
   {
     Icon: FaRegNewspaper,
     title: "Post",
     description: "Manage posts and announcements.",
+    href: "/admin/posts",
   },
 ];
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    clearAdminToken();
-    navigate("/admin/login", { replace: true });
-  }
-
   return (
     <div className="min-h-[calc(100vh-3rem)] rounded-2xl bg-slate-100 shadow-sm">
       <div className="flex items-center justify-between rounded-t-2xl bg-slate-900 px-6 py-4">
         <h1 className="text-lg font-semibold text-white">Dashboard</h1>
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="rounded bg-sky-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-600"
-        >
-          Logout
-        </button>
+        <LogoutButton />
       </div>
 
       <div className="flex min-h-[calc(100vh-9rem)] items-center justify-center px-6 py-10">
