@@ -7,7 +7,7 @@ const initialForm = {
     slug: "",
     excerpt: "",
     content: "",
-    categoryId: "1",
+    categoryId: "",
     status: "DRAFT",
     banner: null,
     bannerImg: "",
@@ -28,7 +28,7 @@ export default function usePostForm({ initialData = null, postId = null, onSucce
             slug: initialData.slug || "",
             excerpt: initialData.excerpt || "",
             content: initialData.content || "",
-            categoryId: String(initialData.categoryId || "1"),
+            categoryId: String(initialData.categoryId || ""),
             status: initialData.status || "DRAFT",
             banner: null,
             bannerImg: initialData.bannerImg || "",
@@ -80,6 +80,7 @@ export default function usePostForm({ initialData = null, postId = null, onSucce
         if (!formData.title.trim()) nextErrors.title = "Title is required.";
         if (!formData.slug.trim()) nextErrors.slug = "Slug is required.";
         if (formData.content.trim().length < 10) nextErrors.content = "Content must be at least 10 characters.";
+        if (!String(formData.categoryId || "").trim()) nextErrors.categoryId = "Category is required.";
 
         setErrors(nextErrors);
         return Object.keys(nextErrors).length === 0;

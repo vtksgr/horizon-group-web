@@ -4,6 +4,37 @@ import { createPostSchema, updatePostSchema } from "../validators/post.validator
 import { uploadPostBanner } from "../services/postMedia.service.js";
 import logger from "../utils/logger.js";
 
+// GET POST CATEGORIES (admin)
+export const getPostCategories = async (req, res) => {
+    try {
+        const categories = await prisma.category.findMany({
+            orderBy: { name: "asc" },
+            select: { id: true, name: true },
+        });
+
+        logger.info("admin_post_categories_viewed", {
+            adminId: req.admin?.id || null,
+            total: categories.length,
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: categories,
+        });
+    } catch (error) {
+        logger.error("admin_post_categories_error", {
+            adminId: req.admin?.id || null,
+            message: error.message,
+            stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+        });
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to load post categories",
+        });
+    }
+};
+
 // CREATE POST
 export const createPost = async (req, res) => {
     try {

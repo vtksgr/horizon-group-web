@@ -74,7 +74,7 @@ export default function Navbar() {
                 <ul className="hidden lg:flex items-center gap-8">
                     <li><Link to="/" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.home}</Link></li>
                     <li><Link to="/career_academy" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.education}</Link></li>
-                    <li><Link to="/blogs_item" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.news}</Link></li>
+                    <li><Link to="/posts" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.news}</Link></li>
                     <li><Link to="/about" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.about}</Link></li>
                     <li><Link to="/jobs" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.jobs}</Link></li>
                     <li><Link to="/faq" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.faq}</Link></li>
@@ -94,7 +94,7 @@ export default function Navbar() {
                 <li><Link to="/" onClick={() => setIsOpen(false)}>{t.home}</Link></li>
                 <li><Link to="/service" onClick={() => setIsOpen(false)}>{t.service}</Link></li>
                 <li><Link to="/career_academy" onClick={() => setIsOpen(false)}>{t.education}</Link></li>
-                <li><Link to="/blogs_item" onClick={() => setIsOpen(false)}>{t.news}</Link></li>
+                <li><Link to="/posts" onClick={() => setIsOpen(false)}>{t.news}</Link></li>
                 <li><Link to="/jobs" onClick={() => setIsOpen(false)}>{t.jobs}</Link></li>
                 <li><Link to="/faq" onClick={() => setIsOpen(false)}>{t.faq}</Link></li>
                 <li><Link to="/contact" onClick={() => setIsOpen(false)}>{t.contact}</Link></li>

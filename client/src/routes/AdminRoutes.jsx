@@ -9,6 +9,7 @@ import RequireAdminAuth from "../pages/admin/auth/RequireAdminAuth";
 
 import PostForm from "../pages/admin/posts/PostForm";
 import PostList from "../pages/admin/posts/PostList";
+import PostView from "../pages/admin/posts/PostView";
 
 export const adminRoutes = (
   <>
@@ -26,6 +27,7 @@ export const adminRoutes = (
         <Route path="posts" element={<PostList />} />
         <Route path="posts/new" element={<PostForm />} />
         <Route path="posts/:id/edit" element={<PostForm />} />
+        <Route path="posts/:id" element={<PostView />} />
       </Route>
     </Route>
   </>

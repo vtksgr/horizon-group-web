@@ -14,6 +14,7 @@ import {
   deletePost,
   getAllPosts,
   getAdminPostById,
+  getPostCategories,
 } from "../controllers/post.controller.js";
 import {
   createJob,
@@ -37,6 +38,7 @@ router.patch("/contacts/:id/status", protectAdmin, updateAdminContactStatus);
 // Admin posts
 router.post("/posts", protectAdmin, uploadPostImages, createPost);
 router.get("/posts", protectAdmin, getAllPosts);
+router.get("/posts/categories", protectAdmin, getPostCategories);
 router.get("/posts/:id", protectAdmin, getAdminPostById);
 router.put("/posts/:id", protectAdmin, uploadPostImages, updatePost);
 router.delete("/posts/:id", protectAdmin, deletePost);

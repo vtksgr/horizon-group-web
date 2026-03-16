@@ -12,6 +12,11 @@ export async function getAdminPostById(id) {
   return res.data;
 }
 
+export async function getAdminPostCategories() {
+    const res = await api.get("/api/admin/posts/categories");
+    return res.data;
+}
+
 //Public
 export async function getPublicPosts(params = {}) {
     const res = await api.get("/api/posts", { params });

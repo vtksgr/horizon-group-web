@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import api from "../../api/axios";
 import { useLanguage } from "../../context/LanguageContext";
 import useLocalizedCopy from "../../hooks/useLocalizedCopy";
+import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
 
 const PAGE_SIZE = 5;
 
 const jobsText = {
   ja: {
+    breadcrumbs: { home: "ホーム", jobs: "採用情報" },
     section: "採用情報",
     title: "募集中の求人",
     subtitle: "Horizon Groupの最新求人情報をご確認ください。",
@@ -28,6 +30,7 @@ const jobsText = {
     next: "次へ",
   },
   en: {
+    breadcrumbs: { home: "Home", jobs: "Careers" },
     section: "Careers",
     title: "Open Jobs",
     subtitle: "Browse current opportunities at Horizon Group.",
@@ -61,8 +64,8 @@ function JobMeta({ label, value }) {
   if (!value) return null;
   return (
     <div className="rounded-md bg-slate-50 px-3 py-2">
-      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
-      <p className="text-sm text-slate-800">{value}</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{label}</p>
+      <p className="text-sm text-(--color-dark)">{value}</p>
     </div>
   );
 }
@@ -129,33 +132,47 @@ export default function Jobs() {
     setPage(clamped);
   }
 
+  const breadcrumbsItem = [
+    { label: t.breadcrumbs.home, to: "/" },
+    { label: t.breadcrumbs.jobs, to: "/jobs" },
+  ];
+
   return (
-    <section className="w-full bg-slate-100 py-14 md:py-20">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
-        <div className="mb-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">{t.section}</p>
-          <h1 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">{t.title}</h1>
-          <p className="mt-2 text-sm text-slate-600 md:text-base">{t.subtitle}</p>
+    <>
+      <section className="w-full mt-32 border-b border-(--color-border)">
+        <div className="lg:w-[75%] mx-auto px-7 lg:px-0 pb-9 page_title">
+          <h1 className="font-semibold">JOBS OPENING</h1>
+          <h6 className="font-semibold text-(--color-text-secondary)">{t.section}</h6>
         </div>
+      </section>
+
+      <section>
+        <div className="lg:w-[75%] mx-auto px-7 lg:px-0">
+          <Breadcrumbs items={breadcrumbsItem} />
+        </div>
+      </section>
+
+      <section className="w-full my-16 py-14 md:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
 
         {loading ? (
-          <div className="rounded-xl bg-white p-6 text-sm text-slate-600 shadow-sm">{t.loading}</div>
+          <div className="rounded-xl bg-(--color-background) p-6 text-sm text-(--color-text-secondary) shadow-sm">{t.loading}</div>
         ) : error ? (
-          <div className="rounded-xl bg-white p-6 text-sm text-red-600 shadow-sm">{error}</div>
+          <div className="rounded-xl bg-(--color-background) p-6 text-sm text-red-600 shadow-sm">{error}</div>
         ) : pagedJobs.length === 0 ? (
-          <div className="rounded-xl bg-white p-6 text-sm text-slate-600 shadow-sm">{t.noJobs}</div>
+          <div className="rounded-xl bg-(--color-background) p-6 text-sm text-(--color-text-secondary) shadow-sm">{t.noJobs}</div>
         ) : (
           <>
             <div className="space-y-4">
               {pagedJobs.map((job) => (
-                <article key={job.id} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                <article key={job.id} className="rounded-xl border border-(--color-border) bg-(--color-background) p-5 shadow-sm md:p-6">
                   <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                     <div>
-                      <h2 className="text-xl font-semibold text-slate-900">{job.title || (language === "en" ? "Untitled Job" : "タイトル未設定")}</h2>
-                      <p className="mt-1 text-sm text-slate-500">{t.posted}: {formatDate(job.createdAt, dateLocale)}</p>
+                      <h2 className="text-xl font-semibold text-(--color-dark)">{job.title || (language === "en" ? "Untitled Job" : "タイトル未設定")}</h2>
+                      <p className="mt-1 text-sm text-(--color-text-secondary)">{t.posted}: {formatDate(job.createdAt, dateLocale)}</p>
                     </div>
 
-                    <span className="inline-flex w-fit rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-800">
+                    <span className="inline-flex w-fit rounded-full bg-(--color-primary)/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-(--color-primary)">
                       {job.status === "URGENT_HIRE" ? t.urgent : t.vacancy}
                     </span>
                   </div>
@@ -171,22 +188,22 @@ export default function Jobs() {
 
                   {job.description ? (
                     <div className="mt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{t.description}</p>
-                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-slate-700">{job.description}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{t.description}</p>
+                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-(--color-text-secondary)">{job.description}</p>
                     </div>
                   ) : null}
 
                   {job.skillsRequired ? (
                     <div className="mt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{t.skills}</p>
-                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-slate-700">{job.skillsRequired}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{t.skills}</p>
+                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-(--color-text-secondary)">{job.skillsRequired}</p>
                     </div>
                   ) : null}
 
                   {job.interviewDetails ? (
                     <div className="mt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{t.interview}</p>
-                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-slate-700">{job.interviewDetails}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{t.interview}</p>
+                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-(--color-text-secondary)">{job.interviewDetails}</p>
                     </div>
                   ) : null}
                 </article>
@@ -199,7 +216,7 @@ export default function Jobs() {
                   type="button"
                   onClick={() => goToPage(page - 1)}
                   disabled={page === 1}
-                  className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-md border border-(--color-border) bg-(--color-background) px-3 py-1.5 text-sm text-(--color-dark) disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {t.previous}
                 </button>
@@ -212,8 +229,8 @@ export default function Jobs() {
                     className={[
                       "rounded-md border px-3 py-1.5 text-sm",
                       pageNumber === page
-                        ? "border-cyan-600 bg-cyan-600 text-white"
-                        : "border-slate-300 bg-white text-slate-700",
+                        ? "border-(--color-primary) bg-(--color-primary) text-white"
+                        : "border-(--color-border) bg-(--color-background) text-(--color-dark)",
                     ].join(" ")}
                   >
                     {pageNumber}
@@ -224,7 +241,7 @@ export default function Jobs() {
                   type="button"
                   onClick={() => goToPage(page + 1)}
                   disabled={page === totalPages}
-                  className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-md border border-(--color-border) bg-(--color-background) px-3 py-1.5 text-sm text-(--color-dark) disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {t.next}
                 </button>
@@ -233,6 +250,7 @@ export default function Jobs() {
           </>
         )}
       </div>
-    </section>
+      </section>
+    </>
   );
 }
