@@ -161,12 +161,21 @@ export default function PostForm() {
               </p>
             </div>
 
-            <Link
-              to="/admin/posts"
-              className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-            >
-              Back to Posts
-            </Link>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                to="/admin/dashboard"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+              >
+                Back to Dashboard
+              </Link>
+
+              <Link
+                to="/admin/posts"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+              >
+                Back to Posts
+              </Link>
+            </div>
           </div>
 
           {pageError ? (

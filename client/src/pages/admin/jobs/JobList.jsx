@@ -127,12 +127,21 @@ export default function JobList() {
 						Reset
 					</button>
 
-					<Link
-						to="/admin/jobs/new"
-						className="rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700"
-					>
-						New Job
-					</Link>
+					<div className="flex gap-2 md:ml-auto">
+						<Link
+							to="/admin/dashboard"
+							className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+						>
+							Back to Dashboard
+						</Link>
+
+						<Link
+							to="/admin/jobs/new"
+							className="rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700"
+						>
+							New Job
+						</Link>
+					</div>
 				</div>
 
 				<div className="overflow-hidden rounded-xl bg-white shadow-sm">

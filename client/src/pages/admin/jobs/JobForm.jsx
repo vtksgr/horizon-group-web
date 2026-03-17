@@ -188,18 +188,36 @@ export default function JobForm() {
 
             <div className="px-6 py-10">
                 <div className="mx-auto w-full max-w-5xl rounded-2xl bg-white p-8 shadow-lg">
-                    <div className="mb-8">
-                        <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-700">
-                            Admin Panel
-                        </p>
-                        <h2 className="mt-3 text-3xl font-semibold text-slate-900">
-                            Job Form
-                        </h2>
-                        <p className="mt-2 text-sm text-slate-600">
-                            {isEditMode
-                                ? "Update job details and save your changes."
-                                : "Create and submit a new job posting for the public careers page."}
-                        </p>
+                    <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-700">
+                                Admin Panel
+                            </p>
+                            <h2 className="mt-3 text-3xl font-semibold text-slate-900">
+                                Job Form
+                            </h2>
+                            <p className="mt-2 text-sm text-slate-600">
+                                {isEditMode
+                                    ? "Update job details and save your changes."
+                                    : "Create and submit a new job posting for the public careers page."}
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-3 sm:flex-row">
+                            <Link
+                                to="/admin/dashboard"
+                                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                            >
+                                Back to Dashboard
+                            </Link>
+
+                            <Link
+                                to="/admin/jobs"
+                                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                            >
+                                Back to Jobs
+                            </Link>
+                        </div>
                     </div>
 
                     {loadingJob ? (

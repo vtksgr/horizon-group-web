@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LogoutButton from "../../../components/admin/LogoutButton";
 import { deletePost, getAdminPostById } from "../../../api/postApi";
+import PostContent from "../../../components/ui/post/PostContent";
 
 function formatDate(value) {
   if (!value) return "-";
@@ -92,6 +93,13 @@ export default function PostView() {
           </button>
 
           <Link
+            to="/admin/dashboard"
+            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            Dashboard
+          </Link>
+
+          <Link
             to="/admin/posts"
             className="rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700"
           >
@@ -160,9 +168,7 @@ export default function PostView() {
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   Content
                 </p>
-                <div className="whitespace-pre-wrap text-sm leading-7 text-slate-800">
-                  {post.content || "-"}
-                </div>
+                <PostContent content={post.content} />
               </div>
             </div>
           )}

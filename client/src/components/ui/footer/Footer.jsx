@@ -87,7 +87,7 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div className="flex xl:justify-end pt-8">
-                        <p class="text-sm">
+                        <p className="text-sm">
                             Designed & Developed by 
                             <a href="https://vtksgr.github.io/portfolio/" target="_blank" rel="noopener">
                                 <span className="font-bold"> Sagar Pariyar</span>

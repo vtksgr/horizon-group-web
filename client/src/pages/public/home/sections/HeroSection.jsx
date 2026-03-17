@@ -67,7 +67,7 @@ export default function HeroSection() {
               {t.companyCta}
             </Link>
             <Link
-              to="/contact_recruit"
+              to="/contact_candidate"
               className="inline-flex min-h-11 items-center justify-center rounded bg-[#00B1E6] px-6 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-[#0099c7] sm:text-sm md:text-base"
             >
               {t.candidateCta}

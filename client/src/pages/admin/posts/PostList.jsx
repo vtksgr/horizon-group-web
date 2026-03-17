@@ -74,12 +74,21 @@ export default function PostList() {
                             </p>
                         </div>
 
-                        <Link
-                            to="/admin/posts/new"
-                            className="inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[var(--color-primary-hover)]"
-                        >
-                            Create Post
-                        </Link>
+                        <div className="flex flex-col gap-3 sm:flex-row">
+                            <Link
+                                to="/admin/dashboard"
+                                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                            >
+                                Back to Dashboard
+                            </Link>
+
+                            <Link
+                                to="/admin/posts/new"
+                                className="inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[var(--color-primary-hover)]"
+                            >
+                                Create Post
+                            </Link>
+                        </div>
                     </div>
 
                     {error ? (

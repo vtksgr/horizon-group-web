@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getPublicPostById } from "../../api/postApi";
+import PostContent from "../../components/ui/post/PostContent";
 
 function formatDate(value) {
     if (!value) return "-";
@@ -73,7 +74,7 @@ export default function PostDetail() {
                             <img
                                 src={post.bannerImg}
                                 alt={post.title || "Post banner"}
-                                className="max-h-[420px] w-full object-cover"
+                                className="max-h-105 w-full object-cover"
                             />
                         ) : null}
 
@@ -93,9 +94,10 @@ export default function PostDetail() {
                                 <p className="mt-4 text-base leading-7 text-slate-700">{post.excerpt}</p>
                             ) : null}
 
-                            <div className="mt-6 whitespace-pre-wrap text-sm leading-7 text-slate-800">
-                                {post.content || "-"}
-                            </div>
+                            <PostContent
+                                content={post.content}
+                                className="mt-6"
+                            />
                         </div>
                     </article>
                 )}

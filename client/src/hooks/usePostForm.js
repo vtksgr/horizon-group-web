@@ -13,6 +13,14 @@ const initialForm = {
     bannerImg: "",
 };
 
+function normalizeContent(value) {
+    return String(value || "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/&nbsp;/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
 export default function usePostForm({ initialData = null, postId = null, onSuccess }) {
     const [formData, setFormData] = useState(initialForm);
     const [errors, setErrors] = useState({});
@@ -76,10 +84,11 @@ export default function usePostForm({ initialData = null, postId = null, onSucce
 
     function validate() {
         const nextErrors = {};
+        const contentText = normalizeContent(formData.content);
 
         if (!formData.title.trim()) nextErrors.title = "Title is required.";
         if (!formData.slug.trim()) nextErrors.slug = "Slug is required.";
-        if (formData.content.trim().length < 10) nextErrors.content = "Content must be at least 10 characters.";
+        if (contentText.length < 10) nextErrors.content = "Content must be at least 10 characters.";
         if (!String(formData.categoryId || "").trim()) nextErrors.categoryId = "Category is required.";
 
         setErrors(nextErrors);
@@ -91,7 +100,7 @@ export default function usePostForm({ initialData = null, postId = null, onSucce
         payload.append("title", formData.title.trim());
         payload.append("slug", slugify(formData.slug));
         payload.append("excerpt", formData.excerpt.trim());
-        payload.append("content", formData.content.trim());
+        payload.append("content", String(formData.content || "").trim());
         payload.append("categoryId", String(formData.categoryId));
         payload.append("status", formData.status);
 

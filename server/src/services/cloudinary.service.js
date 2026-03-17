@@ -34,9 +34,18 @@ export const uploadResumePdf = (file) => {
             );
         }
 
+        const originalName = String(file.originalname || "resume.pdf");
+        const baseName = originalName
+            .replace(/\.[^/.]+$/, "")
+            .replace(/[^a-zA-Z0-9_-]/g, "_")
+            .slice(0, 80) || "resume";
+
         const uploadStream = cloudinary.uploader.upload_stream({
             folder: "horizon-group/resumes",
-            resource_type: "raw", // IMPORTANT for PDFs
+            resource_type: "raw",
+            format: "pdf",
+            public_id: `candidate_resume_${Date.now()}_${baseName}`,
+            overwrite: false,
         },
             (error, result) => {
                 if (error) {
