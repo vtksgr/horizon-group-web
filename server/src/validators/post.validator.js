@@ -1,4 +1,4 @@
-// src/validators/post.validator.js
+// server/src/validators/post.validator.js
 import { z } from "zod";
 
 export const createPostSchema = z.object({
@@ -6,9 +6,18 @@ export const createPostSchema = z.object({
   slug: z.string().min(3, "Slug is required"),
   excerpt: z.string().optional(),
   content: z.string().min(10, "Content is required"),
-  featuredImg: z.string().url().optional(),
-  categoryId: z.number(),
-  status: z.enum(["DRAFT", "PUBLISHED"]).optional()
+
+  // optional URL set by controller after upload
+  bannerImg: z.string().url("Invalid banner image URL").optional(),
+
+  // multipart form-data sends strings
+  categoryId: z
+    .coerce
+    .number()
+    .int()
+    .positive("categoryId must be a positive integer"),
+
+  status: z.enum(["DRAFT", "PUBLISHED"]).optional(),
 });
 
 export const updatePostSchema = z.object({
@@ -16,7 +25,15 @@ export const updatePostSchema = z.object({
   slug: z.string().min(3).optional(),
   excerpt: z.string().optional(),
   content: z.string().min(10).optional(),
-  featuredImg: z.string().url().optional(),
-  categoryId: z.number().optional(),
-  status: z.enum(["DRAFT", "PUBLISHED"]).optional()
+
+  bannerImg: z.string().url("Invalid banner image URL").optional(),
+
+  categoryId: z
+    .coerce
+    .number()
+    .int()
+    .positive("categoryId must be a positive integer")
+    .optional(),
+
+  status: z.enum(["DRAFT", "PUBLISHED"]).optional(),
 });
