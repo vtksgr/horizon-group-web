@@ -1,6 +1,6 @@
-import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
+import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
 import hbBuildingImg from "@assets/images/common/hb-building-img.jpg";
-import useLocalizedCopy from "../../hooks/useLocalizedCopy";
+import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
 
 const companyProfileCopy = {
   ja: {

@@ -1,12 +1,12 @@
-import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
-import CurriculumSection from "./home/sections/CurriculumSection";
+import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
+import CurriculumSection from "../home/sections/CurriculumSection";
 
 import hgAcademyImg from "@assets/images/common/hgAcademyImg.jpg";
 import AcademySupportIcon01 from "@assets/images/icon/academy-support-icon-01.svg";
 import AcademySupportIcon02 from "@assets/images/icon/academy-support-icon-02.svg";
 import AcademySupportIcon03 from "@assets/images/icon/academy-support-icon-03.svg";
 import AcademySupportIcon04 from "@assets/images/icon/academy-support-icon-04.svg";
-import useLocalizedCopy from "../../hooks/useLocalizedCopy";
+import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
 
 const careersCopy = {
   ja: {

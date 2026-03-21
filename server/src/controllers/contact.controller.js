@@ -1,7 +1,11 @@
 import prisma from "../config/prisma.js";
 import validateByType from "../validators/contact.validator.js";
 import { sendContactNotificationEmail } from "../services/contactEmail.service.js";
-import { uploadResumePdf } from "../services/cloudinary.service.js";
+import {
+  buildSignedResumeDownloadUrl,
+  deleteResumePdfByUrl,
+  uploadResumePdf,
+} from "../services/cloudinary.service.js";
 import logger, { maskEmail } from "../utils/logger.js";
 
 
@@ -295,6 +299,126 @@ export const getAdminContactById = async (req, res) => {
   }
 };
 
+// Admin download candidate resume as attachment
+export const downloadAdminContactResume = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid contact id",
+      });
+    }
+
+    const contact = await prisma.contact.findUnique({
+      where: { id },
+      include: {
+        candidate: true,
+      },
+    });
+
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found",
+      });
+    }
+
+    if (contact.type !== "CANDIDATE" || !contact.candidate?.resumeUrl) {
+      return res.status(404).json({
+        success: false,
+        message: "Resume not found",
+      });
+    }
+
+    const sourceUrl = String(contact.candidate.resumeUrl || "").trim();
+    const encodedSourceUrl = encodeURI(sourceUrl);
+    const signedDownloadUrl = buildSignedResumeDownloadUrl(sourceUrl);
+    const cloudinaryAttachmentUrl = encodedSourceUrl.replace(
+      "/raw/upload/",
+      "/raw/upload/fl_attachment/"
+    );
+
+    const candidateUrls = [];
+    if (signedDownloadUrl) {
+      candidateUrls.push(signedDownloadUrl);
+    }
+    candidateUrls.push(encodedSourceUrl);
+    if (cloudinaryAttachmentUrl !== encodedSourceUrl) {
+      candidateUrls.push(cloudinaryAttachmentUrl);
+    }
+
+    let upstreamResponse = null;
+    let usedUrl = null;
+    const attempts = [];
+
+    for (const url of candidateUrls) {
+      const response = await fetch(url, {
+        redirect: "follow",
+        headers: {
+          "User-Agent": "HorizonGroupBackend/1.0",
+          Accept: "application/pdf,application/octet-stream,*/*",
+        },
+      });
+
+      attempts.push({ url, status: response.status });
+
+      if (response.ok) {
+        upstreamResponse = response;
+        usedUrl = url;
+        break;
+      }
+    }
+
+    if (!upstreamResponse) {
+      logger.warn("admin_contact_resume_upstream_failed", {
+        adminId: req.admin?.id || null,
+        contactId: id,
+        attempts,
+      });
+
+      return res.status(502).json({
+        success: false,
+        message: "Failed to fetch resume file",
+      });
+    }
+
+    const contentType =
+      upstreamResponse.headers.get("content-type") || "application/octet-stream";
+    const rawFileName = String(contact.candidate.resumeUrl).split("/").pop() || `resume-${id}.pdf`;
+    const safeFileName = decodeURIComponent(rawFileName).replace(/[\r\n"]/g, "");
+
+    const arrayBuffer = await upstreamResponse.arrayBuffer();
+    const fileBuffer = Buffer.from(arrayBuffer);
+
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Content-Length", String(fileBuffer.length));
+    res.setHeader("Content-Disposition", `attachment; filename="${safeFileName}"`);
+
+    logger.info("admin_contact_resume_downloaded", {
+      adminId: req.admin?.id || null,
+      contactId: id,
+      sourceUrl: usedUrl,
+      bytes: fileBuffer.length,
+    });
+
+    return res.status(200).send(fileBuffer);
+  } catch (error) {
+    logger.error("admin_contact_resume_download_error", {
+      adminId: req.admin?.id || null,
+      contactId: req.params.id || null,
+      message: error.message,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
 // Admin delete contact
 export const deleteAdminContactById = async (req, res) => {
   try {
@@ -307,9 +431,52 @@ export const deleteAdminContactById = async (req, res) => {
       });
     }
 
-    await prisma.contact.delete({
+    const contact = await prisma.contact.findUnique({
       where: { id },
+      include: {
+        candidate: true,
+      },
     });
+
+    if (!contact) {
+      logger.warn("admin_contact_delete_not_found", {
+        adminId: req.admin?.id || null,
+        contactId: id,
+      });
+
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found",
+      });
+    }
+
+    if (contact.type === "CANDIDATE" && contact.candidate?.resumeUrl) {
+      try {
+        const deleteResult = await deleteResumePdfByUrl(contact.candidate.resumeUrl);
+
+        if (!deleteResult.deleted) {
+          logger.warn("admin_contact_resume_delete_not_found", {
+            adminId: req.admin?.id || null,
+            contactId: id,
+            attemptedPublicIds: deleteResult.attemptedPublicIds,
+          });
+        }
+      } catch (resumeDeleteError) {
+        logger.error("admin_contact_resume_delete_error", {
+          adminId: req.admin?.id || null,
+          contactId: id,
+          message: resumeDeleteError.message,
+          stack: process.env.NODE_ENV === "development" ? resumeDeleteError.stack : undefined,
+        });
+
+        return res.status(502).json({
+          success: false,
+          message: "Failed to delete resume file",
+        });
+      }
+    }
+
+    await prisma.contact.delete({ where: { id } });
 
     logger.info("admin_contact_deleted", {
       adminId: req.admin?.id || null,
@@ -321,18 +488,6 @@ export const deleteAdminContactById = async (req, res) => {
       message: "Contact deleted successfully",
     });
   } catch (error) {
-    if (error.code === "P2025") {
-      logger.warn("admin_contact_delete_not_found", {
-        adminId: req.admin?.id || null,
-        contactId: Number(req.params.id),
-      });
-
-      return res.status(404).json({
-        success: false,
-        message: "Contact not found",
-      });
-    }
-
     logger.error("admin_contact_delete_error", {
       adminId: req.admin?.id || null,
       contactId: req.params.id || null,

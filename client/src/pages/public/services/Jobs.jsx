@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import api from "../../api/axios";
-import { useLanguage } from "../../context/LanguageContext";
-import useLocalizedCopy from "../../hooks/useLocalizedCopy";
-import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
+import api from "../../../api/axios";
+import { useLanguage } from "../../../context/LanguageContext";
+import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
+import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
 
 const PAGE_SIZE = 5;
 

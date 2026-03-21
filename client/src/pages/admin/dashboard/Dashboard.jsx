@@ -13,24 +13,26 @@ import {
 const dashboardCards = [
   {
     Icon: FaBuilding,
-    title: "Company Contact",
-    description: "Manage company inquiries and contact forms.",
+    title: "企業お問い合わせ",
+    description: "企業向けのお問い合わせおよびコンタクトフォームを管理。",
+    href: "/admin/company-contacts",
   },
   {
     Icon: FaUserTie,
-    title: "Candidate Contact",
-    description: "Manage candidate contact submissions.",
+    title: "求職者お問い合わせ",
+    description: "求職者からの問い合わせ・応募フォームの送信内容を管理。",
+    href: "/admin/candidate-contacts",
   },
   {
     Icon: FaBriefcase,
-    title: "Job",
-    description: "Add or edit job listings.",
+    title: "求人",
+    description: "求人情報の追加および編集を行います。",
     href: "/admin/jobs",
   },
   {
     Icon: FaRegNewspaper,
-    title: "Post",
-    description: "Manage posts and announcements.",
+    title: "お知らせ",
+    description: "投稿およびお知らせの管理を行います。",
     href: "/admin/posts",
   },
 ];
@@ -53,7 +55,7 @@ export default function Dashboard() {
               Dashboard Content
             </h2>
             <p className="mt-2 text-sm text-slate-600">
-              Choose an area to manage website operations.
+              ウェブサイト運営を管理する領域を選択してください。
             </p>
           </div>
 
@@ -64,10 +66,10 @@ export default function Dashboard() {
                 className="rounded-xl bg-white p-6 shadow"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-[var(--color-primary)]/20">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-(--color-primary)/20">
                     <card.Icon
                       size={20}
-                      className="text-[var(--color-primary)]"
+                      className="text-(--color-primary)"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-slate-900">

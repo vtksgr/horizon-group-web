@@ -10,13 +10,15 @@ const footerCopy = {
         slogan: "世界と日本をつなぐチカラ",
         address: "〒105-0011 東京都新宿区百人町1-20-26バラードハイムムサシノビル806",
         links: {
-            greeting: "ご挨拶",
-            register: "登録欄",
+            greeting: "会社概要",
+            register: "求人情報",
             service: "サービス",
             education: "教育業務",
             news: "お知らせ",
             company: "会社概要",
             contact: "お問い合わせ",
+            contactCompany: "企業様向け",
+            contactCandidate: "求職者様向け",
             privacy: "プライバシーポリシー",
         },
     },
@@ -24,13 +26,15 @@ const footerCopy = {
         slogan: "Connecting Japan with the world",
         address: "1-20-26 Hyakuninchō, Shinjuku-ku, Tokyo 105-0011, Ballade Heim Musashino Building 806",
         links: {
-            greeting: "Greeting",
-            register: "Registration",
+            greeting: "Company",
+            register: "Jobs",
             service: "Services",
             education: "Education",
             news: "News",
             company: "Company",
             contact: "Contact",
+            contactCompany: "For Companies",
+            contactCandidate: "For Candidates",
             privacy: "Privacy Policy",
         },
     },
@@ -53,8 +57,8 @@ export default function Footer() {
                             />
                         </div>
                         <div>
-                            <h6 className="font-bold text-[var(--color-text-secondary)]">{t.slogan}</h6>
-                            <h2 className="font-bold "><span className="text-[var(--color-dark)]">HORIZON</span> <span className="text-[var(--color-primary)]">GROUP</span></h2>
+                            <h6 className="font-bold text-(--color-text-secondary)">{t.slogan}</h6>
+                            <h2 className="font-bold "><span className="text-(--color-dark)">HORIZON</span> <span className="text-(--color-primary)">GROUP</span></h2>
                         </div>
                     </div>
                     <div className=''>
@@ -64,17 +68,27 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* right column */}
+                {/* footer menu: right column */}
                 <div className=''>
                     <div className=''>
                         <ul className='flex flex-wrap gap-x-4 gap-y-2 xl:justify-end'>
-                            <li><Link to="/greeting" className="nav-link transition-all duration-200 ease-in-out">{t.links.greeting}</Link></li>
-                            <li><span className="nav-link transition-all duration-200 ease-in-out">{t.links.register}</span></li>
-                            <li><span className="nav-link transition-all duration-200 ease-in-out">{t.links.service}</span></li>
-                            <li><span className="nav-link transition-all duration-200 ease-in-out">{t.links.education}</span></li>
-                            <li><span className="nav-link transition-all duration-200 ease-in-out">{t.links.news}</span></li>
-                            <li><span className="nav-link transition-all duration-200 ease-in-out">{t.links.company}</span></li>
-                            <li><span className="nav-link transition-all duration-200 ease-in-out">{t.links.contact}</span></li>
+                            <li><Link to="/company_profile" className="nav-link transition-all duration-200 ease-in-out">{t.links.greeting}</Link></li>
+                            <li><Link to="/jobs" className="nav-link transition-all duration-200 ease-in-out">{t.links.register}</Link></li>
+                            <li><Link to="/career_academy" className="nav-link transition-all duration-200 ease-in-out">{t.links.service}</Link></li>
+                            <li><Link to="/career_academy" className="nav-link transition-all duration-200 ease-in-out">{t.links.education}</Link></li>
+                            <li><Link to="/posts" className="nav-link transition-all duration-200 ease-in-out">{t.links.news}</Link></li>
+                            <li><Link to="/company_profile" className="nav-link transition-all duration-200 ease-in-out">{t.links.company}</Link></li>
+                            <li className="relative group">
+                                <span className="nav-link cursor-pointer transition-all duration-200 ease-in-out">{t.links.contact}</span>
+                                <div className="invisible absolute left-0 top-full z-10 mt-2 min-w-40 rounded-md border border-gray-200 bg-white p-2 opacity-0 shadow-md transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                                    <Link to="/contact_company" className="block rounded px-2 py-1 text-sm hover:bg-gray-100">
+                                        {t.links.contactCompany}
+                                    </Link>
+                                    <Link to="/contact_candidate" className="block rounded px-2 py-1 text-sm hover:bg-gray-100">
+                                        {t.links.contactCandidate}
+                                    </Link>
+                                </div>
+                            </li>
                         </ul>
                     </div>
 

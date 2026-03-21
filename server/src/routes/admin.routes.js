@@ -5,6 +5,7 @@ import { getDashboardStats } from "../controllers/admin.controller.js";
 import {
   getAdminContacts,
   getAdminContactById,
+  downloadAdminContactResume,
   deleteAdminContactById,
   updateAdminContactStatus,
 } from "../controllers/contact.controller.js";
@@ -32,6 +33,7 @@ router.get("/dashboard", protectAdmin, getDashboardStats);
 // Admin contacts
 router.get("/contacts", protectAdmin, getAdminContacts);
 router.get("/contacts/:id", protectAdmin, getAdminContactById);
+router.get("/contacts/:id/resume", protectAdmin, downloadAdminContactResume);
 router.delete("/contacts/:id", protectAdmin, deleteAdminContactById);
 router.patch("/contacts/:id/status", protectAdmin, updateAdminContactStatus);
 

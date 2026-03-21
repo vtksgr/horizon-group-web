@@ -1,6 +1,6 @@
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
-import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
-import useLocalizedCopy from "../../hooks/useLocalizedCopy";
+import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
+import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
 
 const greetingCopy = {
   ja: {

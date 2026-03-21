@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { FaArrowRightLong } from "react-icons/fa6";
 
 import desktopHeroImg from "@assets/images/common/desktop-hero-img.jpg";
 import tabletHeroImg from "@assets/images/common/tablet-hero-img.jpg";
 import smartphoneHeroImg from "@assets/images/common/smartphone-hero-img.jpg";
 import useLocalizedCopy from "../../../../hooks/useLocalizedCopy";
+import LatestPost from "./LatestPost";
 
 const copy = {
   ja: {
@@ -13,10 +13,6 @@ const copy = {
       "成長を志す外国籍の皆様と、世界へ羽ばたく企業様との架け橋となることを目指しております。共に支え、高めあうことができますよう、全身全霊でサポートいたします。",
     companyCta: "企業様へお問い合わせ",
     candidateCta: "求職様へお問い合わせ",
-    newsTag: "お知らせ",
-    newsTitle:
-      "代表をはじめ、スタッフ全員が日本で学び、働き、生活してきた経験がございます。",
-    viewAll: "すべてを見る",
     scroll: "Scroll down",
   },
   en: {
@@ -25,10 +21,6 @@ const copy = {
       "We aim to be a bridge between globally minded international talent and companies that are ready to grow beyond borders. Our team offers wholehearted support so both sides can succeed together.",
     companyCta: "Contact for Companies",
     candidateCta: "Contact for Job Seekers",
-    newsTag: "News",
-    newsTitle:
-      "From our representative onward, every team member has firsthand experience studying, working, and living in Japan.",
-    viewAll: "View all",
     scroll: "Scroll down",
   },
 };
@@ -75,32 +67,9 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-
-      <div className="relative z-10 mx-auto mt-6 hidden w-[90%] flex-col items-center justify-between gap-2 border-t border-neutral-200 bg-white px-4 py-3 text-xs text-[#595D61] md:flex md:flex-row md:px-10 md:text-sm lg:px-16">
-        <div className="block min-w-0 flex-1 overflow-x-auto md:flex md:items-center md:gap-3">
-          <span className="w-25 text-sm font-bold text-[#0D0F11] md:border-r md:border-gray-300 md:text-base">NEWS</span>
-          <span className="text-neutral-400">2025.07.17</span>
-          <span className="hidden bg-black px-2 py-0.5 text-[8px] text-white xl:block xl:text-xs">{t.newsTag}</span>
-          <p className="ml-2 truncate md:border-l md:border-gray-300 md:pl-4">
-            <a
-              href="#"
-              className="bg-[linear-gradient(#00B1E6,#00B1E6)] bg-[length:0%_1px] bg-[center_bottom] bg-no-repeat text-[10px] text-[#595D61] transition-all duration-300 ease-in-out hover:bg-[length:100%_1px] hover:text-[#0D0F11] lg:text-sm"
-            >
-              {t.newsTitle}
-            </a>
-          </p>
-        </div>
-
-        <div className="shrink-0 md:border-l md:border-gray-300 md:pl-4">
-          <a
-            href="#"
-            className="inline-flex items-center gap-1 text-[10px] text-[#0080FF] transition-all duration-200 ease-in-out hover:text-[var(--color-primary)] sm:text-xs"
-          >
-            {t.viewAll} <FaArrowRightLong />
-          </a>
-        </div>
-      </div>
-
+{/* latest post  */}
+      <LatestPost />
+{/* scroll text design */}
       <div className="absolute right-2 top-1/2 z-10 hidden -translate-y-1/2 select-none flex-col items-center opacity-60 md:right-5 md:flex">
         <span className="text-[10px] md:text-xs" style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}>
           {t.scroll}

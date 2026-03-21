@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getPublicPostById } from "../../api/postApi";
-import PostContent from "../../components/ui/post/PostContent";
+import { getPublicPostById } from "../../../api/postApi";
+import PostContent from "../../../components/ui/post/PostContent";
 
 function formatDate(value) {
     if (!value) return "-";

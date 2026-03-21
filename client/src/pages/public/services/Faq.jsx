@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
-import useLocalizedCopy from "../../hooks/useLocalizedCopy";
+import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
+import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
 
 const faqCopy = {
   ja: {

@@ -1,5 +1,5 @@
-import Breadcrumbs from "../../components/ui/breadcrumbs/Breadcrumbs";
-import useLocalizedCopy from "../../hooks/useLocalizedCopy";
+import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
+import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
 
 const copy = {
   ja: {

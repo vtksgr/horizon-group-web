@@ -11,6 +11,10 @@ import PostForm from "../pages/admin/posts/PostForm";
 import PostList from "../pages/admin/posts/PostList";
 import PostView from "../pages/admin/posts/PostView";
 
+import CandidateContactList from "../pages/admin/candidateContacts/CandidateContactList";
+import CompanyContactList from "../pages/admin/companyContacts/CompanyContactList";
+import CompanyContactView from "../pages/admin/companyContacts/CompanyContactView";
+
 export const adminRoutes = (
   <>
     <Route path="/admin/login" element={<AdminLogin />} />
@@ -18,6 +22,11 @@ export const adminRoutes = (
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
+
+        <Route path="candidate-contacts" element={<CandidateContactList />} />
+        <Route path="company-contacts" element={<CompanyContactList />} />
+        <Route path="company-contacts/:id" element={<CompanyContactView />} />
+
 
         <Route path="jobs" element={<JobList />} />
         <Route path="jobs/new" element={<JobForm />} />
