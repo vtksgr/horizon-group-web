@@ -1,6 +1,7 @@
 import { FaCheck } from "react-icons/fa6";
 import { BsFillBuildingsFill, BsPeopleFill, BsTranslate } from "react-icons/bs";
 import { FaLaptopCode, FaGraduationCap } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import hbBuilding from "@assets/images/common/hb-building-img.jpg";
 import hbBusiness from "@assets/images/common/hb-business-img.jpg";
@@ -63,6 +64,8 @@ const copy = {
         image: webDevelopment,
         icon: FaLaptopCode,
         heading: "DIGITAL & DESIGN SUPPORT 提供サービス",
+        ctaLabel: "詳細を見る",
+        ctaTo: "/it_solution",
         bullets: [
           "Webサイト・Webアプリ制作",
           "ECサイト構築と運用支援",
@@ -128,6 +131,8 @@ const copy = {
         image: webDevelopment,
         icon: FaLaptopCode,
         heading: "DIGITAL & DESIGN SUPPORT",
+        ctaLabel: "View Details",
+        ctaTo: "/it_solution",
         bullets: [
           "Website and web application development",
           "E-commerce site setup and support",
@@ -171,6 +176,15 @@ function ServiceCard({ section }) {
               </li>
             ))}
           </ul>
+
+          {section.ctaLabel && section.ctaTo ? (
+            <Link
+              to={section.ctaTo}
+              className="mt-6 inline-flex w-fit items-center justify-center  bg-(--color-dark) px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-black"
+            >
+              {section.ctaLabel}
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>

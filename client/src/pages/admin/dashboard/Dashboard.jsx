@@ -9,6 +9,7 @@ import {
   FaRegNewspaper,
   FaUserTie,
 } from "react-icons/fa6";
+import { FaLaptopCode } from "react-icons/fa";
 
 const dashboardCards = [
   {
@@ -22,6 +23,12 @@ const dashboardCards = [
     title: "求職者お問い合わせ",
     description: "求職者からの問い合わせ・応募フォームの送信内容を管理。",
     href: "/admin/candidate-contacts",
+  },
+  {
+    Icon: FaLaptopCode,
+    title: "ITソリューションお問い合わせ",
+    description: "ITソリューション向けお問い合わせフォームの送信内容を管理。",
+    href: "/admin/it-solution-contacts",
   },
   {
     Icon: FaBriefcase,

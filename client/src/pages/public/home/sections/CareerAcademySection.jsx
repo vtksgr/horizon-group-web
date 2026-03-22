@@ -59,7 +59,7 @@ export default function CareerAcademy() {
 
   return (
     <section className="xl:w-[75%] xl:mx-auto px-4 lg:px-6 xl:px-0 py-10">
-      <h2 className="text-center font-semibold tracking-tight text-[#0D0F11]">CAREER ACADEMY</h2>
+      <h2 className="text-center font-semibold tracking-tight text-(--color-dark)">CAREER ACADEMY</h2>
       <h6 className="text-center mb-8 font-semibold">{t.subtitle}</h6>
 
       <div className="max-w-7xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -75,7 +75,7 @@ export default function CareerAcademy() {
 
               <h5 className="font-bold text-[var(--color-dark)] mb-6">{card.title}</h5>
 
-              <p className="text-gray-600 flex-grow">{card.description}</p>
+              <p className="text-(--text-color) flex-grow">{card.description}</p>
 
               <div className="flex justify-between items-center mt-4">
                 <Link to="/career_academy" className="link text-[#0080FF] text-sm font-medium">

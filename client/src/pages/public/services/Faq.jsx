@@ -214,12 +214,12 @@ export default function FAQ() {
                       <span
                         className={[
                           "flex h-6 w-6 shrink-0 items-center justify-center rounded text-xs font-semibold",
-                          isActive ? "bg-[var(--color-primary)] text-white" : "bg-gray-200 text-gray-700",
+                          isActive ? "bg-[var(--color-primary)] text-white" : "bg-gray-200 text-(--text-color)",
                         ].join(" ")}
                       >
                         {idx + 1}
                       </span>
-                      <span className="text-sm font-medium">{cat.title}</span>
+                      <span className="text-sm font-medium text-(--text-color)">{cat.title}</span>
                     </button>
                   </li>
                 );
@@ -237,12 +237,12 @@ export default function FAQ() {
                   {item.q}
                 </p>
                 <p className="text-sm whitespace-pre-line">
-                  <span className="font-semibold mr-2">A.</span>
+                  <span className="font-semibold mr-2 text-(--text-color)">A.</span>
                   {item.a}
                 </p>
               </div>
             ))}
-            {activeFaqs.length === 0 ? <p className="text-gray-500">{t.empty}</p> : null}
+            {activeFaqs.length === 0 ? <p className="text-(--text-color)">{t.empty}</p> : null}
           </div>
         </aside>
       </section>

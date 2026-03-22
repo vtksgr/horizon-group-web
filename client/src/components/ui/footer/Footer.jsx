@@ -19,6 +19,7 @@ const footerCopy = {
             contact: "お問い合わせ",
             contactCompany: "企業様向け",
             contactCandidate: "求職者様向け",
+            contactItSolution: "ITソリューション向け",
             privacy: "プライバシーポリシー",
         },
     },
@@ -35,6 +36,7 @@ const footerCopy = {
             contact: "Contact",
             contactCompany: "For Companies",
             contactCandidate: "For Candidates",
+            contactItSolution: "For IT Solutions",
             privacy: "Privacy Policy",
         },
     },
@@ -86,6 +88,9 @@ export default function Footer() {
                                     </Link>
                                     <Link to="/contact_candidate" className="block rounded px-2 py-1 text-sm hover:bg-gray-100">
                                         {t.links.contactCandidate}
+                                    </Link>
+                                    <Link to="/contact_it_solution" className="block rounded px-2 py-1 text-sm hover:bg-gray-100">
+                                        {t.links.contactItSolution}
                                     </Link>
                                 </div>
                             </li>

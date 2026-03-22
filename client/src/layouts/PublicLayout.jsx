@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Topbar from "../components/ui/navbar/Topbar";    
 import Navbar from "../components/ui/navbar/Navbar";
 import Footer from "../components/ui/footer/Footer";
+import ScrollToTopButton from "../components/ui/scroll/ScrollToTopButton";
 
 
 export default function PublicLayout() {
@@ -15,6 +16,7 @@ export default function PublicLayout() {
         <footer className="mt-auto">
           <Footer />
         </footer>
+        <ScrollToTopButton />
     </div>
   )
 }

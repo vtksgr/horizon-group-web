@@ -35,16 +35,16 @@ export const createContact = async (req, res, next) => {
       }
     }
 
-    // Create contact with nested relations for COMPANY/CANDIDATE
+    // Create contact with nested relations for COMPANY/CANDIDATE/ITSOLUTION
     const contact = await prisma.contact.create({
       data: {
         type: contactType,
         firstName: validatedData.firstName,
         lastName: validatedData.lastName,
         email: validatedData.email,
-        phoneNumber: validatedData.phoneNumber,
-        postalCode: validatedData.postalCode,
-        address: validatedData.address,
+        phoneNumber: validatedData.phoneNumber ?? null,
+        postalCode: validatedData.postalCode ?? null,
+        address: validatedData.address ?? null,
         message: validatedData.message,
         ...(contactType === "COMPANY" && {
           company: {
@@ -63,10 +63,19 @@ export const createContact = async (req, res, next) => {
             },
           },
         }),
+        ...(contactType === "ITSOLUTION" && {
+          itSolution: {
+            create: {
+              companyName: validatedData.companyName,
+              inquiryType: validatedData.inquiryType,
+            },
+          },
+        }),
       },
       include: {
         company: true,
         candidate: true,
+        itSolution: true,
       },
     });
 
@@ -101,7 +110,7 @@ export const createContact = async (req, res, next) => {
 };
 
 // Admin list contacts with filters:
-// type=company|candidate|all, sort=newest|oldest, page, limit, search, from, to
+// type=company|candidate|itsolution|all, sort=newest|oldest, page, limit, search, from, to
 export const getAdminContacts = async (req, res) => {
   try {
     const typeParam = String(req.query.type || "all").toLowerCase();
@@ -115,13 +124,14 @@ export const getAdminContacts = async (req, res) => {
     const typeMap = {
       company: "COMPANY",
       candidate: "CANDIDATE",
+      itsolution: "ITSOLUTION",
       all: undefined,
     };
 
     if (!(typeParam in typeMap)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid type. Use company, candidate, or all.",
+        message: "Invalid type. Use company, candidate, itsolution, or all.",
       });
     }
 
@@ -201,6 +211,7 @@ export const getAdminContacts = async (req, res) => {
         include: {
           company: true,
           candidate: true,
+          itSolution: true,
         },
         orderBy: {
           createdAt: sortParam === "oldest" ? "asc" : "desc",
@@ -260,6 +271,7 @@ export const getAdminContactById = async (req, res) => {
       include: {
         company: true,
         candidate: true,
+        itSolution: true,
       },
     });
 
@@ -538,6 +550,7 @@ export const updateAdminContactStatus = async (req, res) => {
       include: {
         company: true,
         candidate: true,
+        itSolution: true,
       },
     });
 

@@ -26,15 +26,16 @@ model Contact {
   firstName   String
   lastName    String
   email       String
-  phoneNumber String
-  postalCode  String
-  address     String
+  phoneNumber String?
+  postalCode  String?
+  address     String?
   message     String
   isRead      Boolean      @default(false)
   isArchived  Boolean      @default(false)
 
   company     CompanyContact?
   candidate   CandidateContact?
+  itSolution  ItSolutionContact?
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -61,9 +62,19 @@ model CandidateContact {
   contact           Contact               @relation(fields: [contactId], references: [id], onDelete: Cascade)
 }
 
+model ItSolutionContact {
+  id                Int                    @id @default(autoincrement())
+  contactId         Int                    @unique
+  companyName       String
+  inquiryType       ItSolutionInquiryType
+
+  contact           Contact                @relation(fields: [contactId], references: [id], onDelete: Cascade)
+}
+
 enum ContactType {
   COMPANY
   CANDIDATE
+  ITSOLUTION
 }
 
 enum CompanyPosition {
@@ -91,6 +102,15 @@ enum CandidateInquiryType {
   JOB_HUNTING_SUPPORT
   CAREER_CHANGE_SUPPORT
   OTHER_SUPPORT
+}
+
+enum ItSolutionInquiryType {
+  WEB_DEVELOPMENT
+  DESIGN_AND_BRANDING
+  DIGITAL_MARKETING_SEO
+  IT_SUPPORT_CONSULTING
+  DESIGN_PRINT
+  OTHERS
 }
 
 

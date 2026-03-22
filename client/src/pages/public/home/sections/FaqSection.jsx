@@ -71,7 +71,7 @@ export default function FaqSection() {
   return (
     <section className="max-w-3xl mx-auto py-12 px-6 lg:px-0">
       <div className="text-center mb-10">
-        <h2 className="text-center font-semibold tracking-tight text-[#0D0F11]">FAQ</h2>
+        <h2 className="text-center font-semibold tracking-tight text-(--color-dark)">FAQ</h2>
         <h6 className="text-center mb-3 font-semibold">{t.subtitle}</h6>
       </div>
 

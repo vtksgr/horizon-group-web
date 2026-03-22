@@ -84,7 +84,7 @@ export default function ProgressSection({ className = "" }) {
                             {displayValues[index]}
                             {item.sign && <span>{item.sign}</span>}
                         </span>
-                        <span className="text-sm font-semibold text-[#595D61] mt-2">
+                        <span className="text-sm font-semibold text-(--text-color) mt-2">
                             {item.label}
                         </span>
                     </div>

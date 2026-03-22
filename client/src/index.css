@@ -28,7 +28,9 @@
   --color-border: #e5e7eb;
   --color-background: #ffffff;
 
---text-color: #595D61
+/* --text-color: #595D61 */
+--text-color: #525252
+
 }
 
 @layer base {

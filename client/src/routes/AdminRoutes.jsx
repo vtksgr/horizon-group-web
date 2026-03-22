@@ -14,6 +14,8 @@ import PostView from "../pages/admin/posts/PostView";
 import CandidateContactList from "../pages/admin/candidateContacts/CandidateContactList";
 import CompanyContactList from "../pages/admin/companyContacts/CompanyContactList";
 import CompanyContactView from "../pages/admin/companyContacts/CompanyContactView";
+import ItSolutionContactList from "../pages/admin/itSolutionContacts/ItSolutionContactList";
+import ItSolutionContactView from "../pages/admin/itSolutionContacts/ItSolutionContactView";
 
 export const adminRoutes = (
   <>
@@ -26,6 +28,8 @@ export const adminRoutes = (
         <Route path="candidate-contacts" element={<CandidateContactList />} />
         <Route path="company-contacts" element={<CompanyContactList />} />
         <Route path="company-contacts/:id" element={<CompanyContactView />} />
+        <Route path="it-solution-contacts" element={<ItSolutionContactList />} />
+        <Route path="it-solution-contacts/:id" element={<ItSolutionContactView />} />
 
 
         <Route path="jobs" element={<JobList />} />

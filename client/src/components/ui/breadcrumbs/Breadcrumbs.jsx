@@ -40,7 +40,7 @@ export default function Breadcrumbs({ items = [] }) {
                                     </svg>
                                 </>
                             ) : (
-                                <span className="border-b border-[#00B1E6]" aria-current="page">
+                                <span className="border-b border-(--color-primary)" aria-current="page">
                                     {crumb.label}
                                 </span>
                             )}

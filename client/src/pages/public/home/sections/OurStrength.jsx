@@ -111,9 +111,9 @@ export default function OurStrength() {
                 <item.Icon size={32} className="text-[var(--color-primary)]" />
               </div>
 
-              <span className="text-lg sm:text-[18px] md:text-xl text-[#0d0f11] font-semibold">{item.title}</span>
+              <span className="text-lg sm:text-[18px] md:text-xl text-(--color-dark) font-semibold">{item.title}</span>
 
-              <p className="text-sm sm:text-[15px] md:text-base text-gray-600 leading-relaxed">{item.description}</p>
+              <p className="text-sm sm:text-[15px] md:text-base text-(--text-color) leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>

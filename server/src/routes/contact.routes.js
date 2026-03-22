@@ -36,5 +36,12 @@ router.post(
   uploadCandidateResume,
   createContact
 );
+router.post(
+  "/itsolution",
+  contactSubmitLimiter,
+  setContactType("itsolution"),
+  uploadCandidateResume,
+  createContact
+);
 
 export default router;

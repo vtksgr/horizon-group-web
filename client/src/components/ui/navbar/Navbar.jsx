@@ -18,6 +18,7 @@ const navText = {
         contact: "お問い合わせ",
         contactCompany: "企業様向け",
         contactCandidate: "求職者様向け",
+        contactItSolution: "ITソリューション向け",
     },
     en: {
         home: "Home",
@@ -32,6 +33,7 @@ const navText = {
         contact: "Contact",
         contactCompany: "For Companies",
         contactCandidate: "For Candidates",
+        contactItSolution: "For IT Solutions",
     },
 };
 
@@ -47,7 +49,7 @@ export default function Navbar() {
                 <div>
                     <Link to="/" className="flex items-center">
                         <img src={logo} alt="logo" className="w-10 h-10 block md:hidden" />
-                        <span className="text-2xl font-extrabold text-[#0D0F11] tracking-wide pr-2 hidden md:block">
+                        <span className="text-2xl font-extrabold text-(--color-dark) tracking-wide pr-2 hidden md:block">
                             HORIZON
                         </span>
                         <span className="text-2xl font-extrabold text-(--color-primary) tracking-wide hidden md:block">
@@ -82,18 +84,20 @@ export default function Navbar() {
                     <li><Link to="/career_academy" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.education}</Link></li>
                     <li><Link to="/it_solution" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.itSolution}</Link></li>
                     <li><Link to="/posts" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.news}</Link></li>
-                    <li><Link to="/about" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.about}</Link></li>
                     <li><Link to="/jobs" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.jobs}</Link></li>
                     <li><Link to="/faq" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.faq}</Link></li>
                     <li><Link to="/company_profile" className="nav-link transition-all duration-200 ease-in-out" onClick={() => setIsOpen(false)}>{t.company}</Link></li>
                     <li className="relative group">
                         <span className="nav-link cursor-pointer transition-all duration-200 ease-in-out">{t.contact}</span>
                         <div className="invisible absolute right-1 top-full z-10 mt-2 min-w-44 rounded-md border border-gray-200 bg-white p-2 opacity-0 shadow-md transition-all duration-200 group-hover:visible group-hover:opacity-100">
-                            <Link to="/contact_company" className="block rounded px-2 py-1 text-sm hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                            <Link to="/contact_company" className="block rounded px-2 py-1 text-sm hover:bg-(--color-primary) hover:text-amber-50" onClick={() => setIsOpen(false)}>
                                 {t.contactCompany}
                             </Link>
-                            <Link to="/contact_candidate" className="block rounded px-2 py-1 text-sm hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                            <Link to="/contact_candidate" className="block rounded px-2 py-1 text-sm hover:bg-(--color-primary)  hover:text-amber-50" onClick={() => setIsOpen(false)}>
                                 {t.contactCandidate}
+                            </Link>
+                            <Link to="/contact_it_solution" className="block rounded px-2 py-1 text-sm hover:bg-(--color-primary)  hover:text-amber-50" onClick={() => setIsOpen(false)}>
+                                {t.contactItSolution}
                             </Link>
                         </div>
                     </li>
@@ -105,7 +109,7 @@ export default function Navbar() {
             <ul
                 id="mobile-menu"
                 className={[
-                    "flex flex-col gap-4 mt-4 lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
+                    "flex flex-col gap-4 p-4 border-t border-t-gray-300 bg-white lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
                     isOpen ? "max-h-96 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-2 pointer-events-none",
                 ].join(" ")}
             >
@@ -119,6 +123,7 @@ export default function Navbar() {
                 <li className="font-medium pt-2">{t.contact}</li>
                 <li><Link to="/contact_company" onClick={() => setIsOpen(false)}>{t.contactCompany}</Link></li>
                 <li><Link to="/contact_candidate" onClick={() => setIsOpen(false)}>{t.contactCandidate}</Link></li>
+                <li><Link to="/contact_it_solution" onClick={() => setIsOpen(false)}>{t.contactItSolution}</Link></li>
             </ul>
         </nav>
     );

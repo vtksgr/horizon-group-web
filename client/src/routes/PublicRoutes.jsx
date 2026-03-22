@@ -10,6 +10,7 @@ import Post from "../pages/public/post/Post";
 import PostDetail from "../pages/public/post/PostDetail";
 import CompanyContact from "../pages/public/contacts/CompanyContact";
 import CandidateContact from "../pages/public/contacts/CandidateContact";
+import ItSolutionContact from "../pages/public/contacts/ItSolutionContact";
 import ItSolution from "../pages/public/services/ItSolution";
 
 export const publicRoutes = (
@@ -24,6 +25,7 @@ export const publicRoutes = (
 		<Route path="/posts/:id" element={<PostDetail />} />
         <Route path="/contact_company" element={<CompanyContact />} />
 		<Route path="/contact_candidate" element={<CandidateContact />} />
+		<Route path="/contact_it_solution" element={<ItSolutionContact />} />
 		<Route path="/it_solution" element={<ItSolution />} />
 
 	</Route>

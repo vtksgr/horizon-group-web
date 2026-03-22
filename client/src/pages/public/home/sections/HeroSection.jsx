@@ -54,13 +54,13 @@ export default function HeroSection() {
           <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row md:gap-5 2xl:mt-9">
             <Link
               to="/contact_company"
-              className="inline-flex min-h-11 items-center justify-center rounded bg-[#0D0F11] px-6 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-black sm:text-sm md:text-base"
+              className="inline-flex min-h-11 items-center justify-center bg-(--color-dark) px-6 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-black sm:text-sm md:text-base"
             >
               {t.companyCta}
             </Link>
             <Link
               to="/contact_candidate"
-              className="inline-flex min-h-11 items-center justify-center rounded bg-[#00B1E6] px-6 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-[#0099c7] sm:text-sm md:text-base"
+              className="inline-flex min-h-11 items-center justify-center bg-(--color-primary) px-6 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-(--color-primary-hover) sm:text-sm md:text-base"
             >
               {t.candidateCta}
             </Link>
