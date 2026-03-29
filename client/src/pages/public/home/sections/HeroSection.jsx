@@ -31,10 +31,19 @@ export default function HeroSection() {
   return (
     <section className="relative flex h-full min-h-0 flex-col justify-between overflow-hidden px-4 py-4 text-white md:px-10 md:py-6 lg:px-16">
       <div className="absolute inset-0 z-0">
-        <img src={smartphoneHeroImg} alt="" className="h-full w-full object-cover md:hidden" aria-hidden="true" />
-        <img src={tabletHeroImg} alt="" className="hidden h-full w-full object-cover md:block lg:hidden" aria-hidden="true" />
-        <img src={desktopHeroImg} alt="" className="hidden h-full w-full object-cover lg:block" aria-hidden="true" />
-        <div className="absolute inset-0 bg-[rgba(80,90,110,0.6)]" />
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={desktopHeroImg} />
+          <source media="(min-width: 768px)" srcSet={tabletHeroImg} />
+          <img
+            src={smartphoneHeroImg}
+            alt=""
+            className="h-full w-full object-cover"
+            aria-hidden="true"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
+        <div className="absolute inset-0 bg-[rgba(41,59,99,0.6)]" />
       </div>
 
       <div className="relative z-10 flex flex-1 items-center justify-center">

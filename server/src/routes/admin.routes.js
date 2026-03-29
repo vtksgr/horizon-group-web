@@ -1,5 +1,5 @@
 import express from "express";
-import { protectAdmin } from "../middleware/adminAuth.middleware.js";
+import { protectAdmin, requireTrustedAdminOrigin } from "../middleware/adminAuth.middleware.js";
 import { uploadPostImages } from "../middleware/postUpload.middleware.js";
 import { getDashboardStats } from "../controllers/admin.controller.js";
 import {
@@ -34,24 +34,24 @@ router.get("/dashboard", protectAdmin, getDashboardStats);
 router.get("/contacts", protectAdmin, getAdminContacts);
 router.get("/contacts/:id", protectAdmin, getAdminContactById);
 router.get("/contacts/:id/resume", protectAdmin, downloadAdminContactResume);
-router.delete("/contacts/:id", protectAdmin, deleteAdminContactById);
-router.patch("/contacts/:id/status", protectAdmin, updateAdminContactStatus);
+router.delete("/contacts/:id", requireTrustedAdminOrigin, protectAdmin, deleteAdminContactById);
+router.patch("/contacts/:id/status", requireTrustedAdminOrigin, protectAdmin, updateAdminContactStatus);
 
 // Admin posts
-router.post("/posts", protectAdmin, uploadPostImages, createPost);
+router.post("/posts", requireTrustedAdminOrigin, protectAdmin, uploadPostImages, createPost);
 router.get("/posts", protectAdmin, getAllPosts);
 router.get("/posts/categories", protectAdmin, getPostCategories);
 router.get("/posts/:id", protectAdmin, getAdminPostById);
-router.put("/posts/:id", protectAdmin, uploadPostImages, updatePost);
-router.delete("/posts/:id", protectAdmin, deletePost);
+router.put("/posts/:id", requireTrustedAdminOrigin, protectAdmin, uploadPostImages, updatePost);
+router.delete("/posts/:id", requireTrustedAdminOrigin, protectAdmin, deletePost);
 
 
 
 // Admin jobs
-router.post("/jobs", protectAdmin, createJob);
+router.post("/jobs", requireTrustedAdminOrigin, protectAdmin, createJob);
 router.get("/jobs", protectAdmin, getAdminJobs);
-router.put("/jobs/:id", protectAdmin, updateJob);
-router.delete("/jobs/:id", protectAdmin, deleteJob);
-router.patch("/jobs/:id/status", protectAdmin, updateJobStatus);
+router.put("/jobs/:id", requireTrustedAdminOrigin, protectAdmin, updateJob);
+router.delete("/jobs/:id", requireTrustedAdminOrigin, protectAdmin, deleteJob);
+router.patch("/jobs/:id/status", requireTrustedAdminOrigin, protectAdmin, updateJobStatus);
 
 export default router;

@@ -11,7 +11,7 @@ export default function Topbar() {
   const selectorLabel = language === "en" ? "Language selector" : "言語選択";
 
   return (
-    <div className="bg-(--color-primary) text-white text-sm flex justify-between items-center h-9 px-4 md:px-8 fixed top-0 left-0 w-full z-[1001]">
+    <div className="bg-(--color-primary) text-white text-sm flex justify-between items-center h-9 px-4 md:px-8 fixed top-0 left-0 w-full z-1001">
       {/* Left */}
       <div className="flex gap-6">
         <span>info@horizongroup.co.jp</span>

@@ -1,6 +1,7 @@
 // src/app.js
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import morgan from "morgan";
 import logger from "./utils/logger.js";
 import { attachRequestId } from "./middleware/requestId.middleware.js";
@@ -18,6 +19,33 @@ const allowedOrigins = String(process.env.FRONTEND_ORIGINS || "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
+
+const googleMapsOrigins = ["https://www.google.com", "https://maps.google.com"];
+const fontOrigins = ["https://fonts.googleapis.com", "https://fonts.gstatic.com"];
+const assetOrigins = ["https:", "data:", "blob:"];
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", ...fontOrigins],
+        imgSrc: ["'self'", ...assetOrigins],
+        fontSrc: ["'self'", "data:", ...fontOrigins],
+        connectSrc: ["'self'", ...allowedOrigins],
+        frameSrc: ["'self'", ...googleMapsOrigins],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'", ...allowedOrigins],
+        frameAncestors: ["'self'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+  })
+);
 
 app.use(
   cors({

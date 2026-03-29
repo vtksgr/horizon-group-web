@@ -7,6 +7,27 @@ import {
 } from "../validators/admin.validator.js";
 import logger from "../utils/logger.js";
 
+const ADMIN_AUTH_COOKIE = "admin_auth";
+
+function getAdminCookieOptions() {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  return {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "strict",
+    path: "/",
+    maxAge: 24 * 60 * 60 * 1000,
+  };
+}
+
+function clearAdminAuthCookie(res) {
+  res.clearCookie(ADMIN_AUTH_COOKIE, {
+    ...getAdminCookieOptions(),
+    maxAge: undefined,
+  });
+}
+
 // REGISTER ADMIN
 export const registerAdmin = async (req, res) => {
   try {
@@ -156,9 +177,10 @@ export const loginAdmin = async (req, res) => {
       username: admin.username,
     });
 
+    res.cookie(ADMIN_AUTH_COOKIE, token, getAdminCookieOptions());
+
     res.json({
       message: "Login successful",
-      token,
       admin: {
         id: admin.id,
         username: admin.username,
@@ -175,5 +197,50 @@ export const loginAdmin = async (req, res) => {
     });
 
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getAdminSession = async (req, res) => {
+  try {
+    if (!req.admin) {
+      return res.status(401).json({
+        success: false,
+        message: "Not authorized",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      admin: {
+        id: req.admin.id,
+        username: req.admin.username,
+        email: req.admin.email,
+      },
+    });
+  } catch (error) {
+    logger.error("admin_session_error", {
+      message: error.message,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
+
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const logoutAdmin = async (req, res) => {
+  try {
+    clearAdminAuthCookie(res);
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+  } catch (error) {
+    logger.error("admin_logout_error", {
+      message: error.message,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
+
+    return res.status(500).json({ message: "Server error" });
   }
 };

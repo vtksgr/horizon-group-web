@@ -61,7 +61,16 @@ export default function PostDetail() {
                 </div>
 
                 {loading ? (
-                    <p className="text-sm text-slate-600">Loading post...</p>
+                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <div className="h-64 animate-pulse bg-slate-200" />
+                        <div className="space-y-4 p-6 sm:p-8">
+                            <div className="h-4 w-40 animate-pulse rounded bg-slate-200" />
+                            <div className="h-10 w-3/4 animate-pulse rounded bg-slate-200" />
+                            <div className="h-4 w-full animate-pulse rounded bg-slate-200" />
+                            <div className="h-4 w-5/6 animate-pulse rounded bg-slate-200" />
+                            <div className="h-4 w-full animate-pulse rounded bg-slate-200" />
+                        </div>
+                    </div>
                 ) : error ? (
                     <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                         {error}
@@ -75,6 +84,8 @@ export default function PostDetail() {
                                 src={post.bannerImg}
                                 alt={post.title || "Post banner"}
                                 className="max-h-105 w-full object-cover"
+                                fetchPriority="high"
+                                decoding="async"
                             />
                         ) : null}
 

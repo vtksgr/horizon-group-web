@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { isAdminAuthenticated, setAdminToken } from "../auth/authStorage";
+import { fetchAdminSession, isAdminAuthenticated, setAdminAuthenticated } from "../auth/authStorage";
 import api from "../../../api/axios";
 
 import Logo from "@assets/images/logo/logo.svg";
@@ -12,9 +12,40 @@ export default function AdminLogin() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [checkingSession, setCheckingSession] = useState(!isAdminAuthenticated());
+
+    useEffect(() => {
+      let mounted = true;
+
+      async function hydrateSession() {
+        const admin = await fetchAdminSession();
+
+        if (mounted && admin) {
+          setAdminAuthenticated(admin);
+        }
+
+        if (mounted) {
+          setCheckingSession(false);
+        }
+      }
+
+      if (!isAdminAuthenticated()) {
+        hydrateSession();
+      } else {
+        setCheckingSession(false);
+      }
+
+      return () => {
+        mounted = false;
+      };
+    }, []);
 
     if (isAdminAuthenticated()) {
         return <Navigate to="/admin/dashboard" replace />
+    }
+
+    if (checkingSession) {
+      return <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4 text-sm text-slate-600">Checking admin session...</div>;
     }
 
     const redirectTo = location.state?.from?.pathname || "/admin/dashboard";
@@ -39,7 +70,7 @@ export default function AdminLogin() {
 
             const { data } = await api.post("/api/admin/login", loginPayload);
 
-            setAdminToken(data.token); // token from backend response
+            setAdminAuthenticated(data.admin);
             navigate(redirectTo, { replace: true });
         } catch (err) {
             setError(err.message || "Login failed.");
@@ -62,7 +93,7 @@ export default function AdminLogin() {
       onSubmit={onSubmit}
       className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg"
     >
-      <h1 className="text-2xl font-semibold mb-6 text-center text-[var(--color-dark)]">
+      <h1 className="mb-6 text-center text-2xl font-semibold text-(--color-dark)">
         Admin Login
       </h1>
 
@@ -93,7 +124,7 @@ export default function AdminLogin() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-[var(--color-primary)] hover:bg-cyan-700 text-white py-2.5 rounded font-medium transition duration-200 disabled:opacity-60"
+        className="w-full rounded bg-(--color-primary) py-2.5 font-medium text-white transition duration-200 hover:bg-cyan-700 disabled:opacity-60"
       >
         {loading ? "Signing in..." : "Sign in"}
       </button>

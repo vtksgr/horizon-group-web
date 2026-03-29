@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
 import { getPublicPosts } from "../../../api/postApi";
@@ -31,6 +31,22 @@ export default function Post() {
         const clamped = Math.min(Math.max(nextPage, 1), totalPages);
         setPage(clamped);
     }
+
+    const visiblePages = useMemo(() => {
+        if (totalPages <= 7) {
+            return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+        }
+
+        const start = Math.max(1, page - 2);
+        const end = Math.min(totalPages, page + 2);
+        const pages = new Set([1, totalPages]);
+
+        for (let pageNumber = start; pageNumber <= end; pageNumber += 1) {
+            pages.add(pageNumber);
+        }
+
+        return Array.from(pages).sort((left, right) => left - right);
+    }, [page, totalPages]);
 
     useEffect(() => {
         let mounted = true;
@@ -104,6 +120,8 @@ export default function Post() {
                                                         src={post.bannerImg}
                                                         alt={post.title || "Post banner"}
                                                         className="h-full w-full object-cover"
+                                                        loading="lazy"
+                                                        decoding="async"
                                                     />
                                                 ) : null}
                                             </div>
@@ -158,21 +176,33 @@ export default function Post() {
                                         Previous
                                     </button>
 
-                                    {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNumber) => (
-                                        <button
-                                            key={pageNumber}
-                                            type="button"
-                                            onClick={() => goToPage(pageNumber)}
-                                            className={[
-                                                "rounded-md border px-3 py-1.5 text-sm",
-                                                pageNumber === page
-                                                    ? "border-(--color-primary) bg-(--color-primary) text-white"
-                                                    : "border-(--color-border) bg-(--color-background) text-(--color-dark)",
-                                            ].join(" ")}
-                                        >
-                                            {pageNumber}
-                                        </button>
-                                    ))}
+                                    {visiblePages.map((pageNumber, index) => {
+                                        const previousPage = visiblePages[index - 1];
+                                        const shouldShowGap = previousPage && pageNumber - previousPage > 1;
+
+                                        return (
+                                            <div key={pageNumber} className="contents">
+                                                {shouldShowGap ? (
+                                                    <span className="px-1 text-sm text-(--color-text-secondary)" aria-hidden="true">
+                                                        ...
+                                                    </span>
+                                                ) : null}
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() => goToPage(pageNumber)}
+                                                    className={[
+                                                        "rounded-md border px-3 py-1.5 text-sm",
+                                                        pageNumber === page
+                                                            ? "border-(--color-primary) bg-(--color-primary) text-white"
+                                                            : "border-(--color-border) bg-(--color-background) text-(--color-dark)",
+                                                    ].join(" ")}
+                                                >
+                                                    {pageNumber}
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
 
                                     <button
                                         type="button"

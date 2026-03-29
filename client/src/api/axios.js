@@ -6,6 +6,24 @@ if (!baseURL) {
   throw new Error("VITE_API_BASE_URL is not set");
 }
 
+function isAdminRequest(url = "") {
+  const normalizedUrl = String(url || "");
+
+  if (!normalizedUrl) {
+    return false;
+  }
+
+  if (normalizedUrl.startsWith("http://") || normalizedUrl.startsWith("https://")) {
+    try {
+      return new URL(normalizedUrl).pathname.startsWith("/api/admin");
+    } catch {
+      return false;
+    }
+  }
+
+  return normalizedUrl.startsWith("/api/admin") || normalizedUrl.startsWith("api/admin");
+}
+
 const api = axios.create({
   baseURL,
   timeout: 15000,
@@ -15,11 +33,9 @@ const api = axios.create({
   withCredentials: false,
 });
 
-// Attach JWT for admin APIs
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("admin_token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (isAdminRequest(config.url)) {
+    config.withCredentials = true;
   }
 
   // Let the browser set multipart boundaries for FormData payloads.
@@ -34,9 +50,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error?.response?.status === 401) {
-      localStorage.removeItem("admin_token");
-      window.location.href = "/admin/login";
+    if (error?.response?.status === 401 && isAdminRequest(error?.config?.url)) {
+      if (window.location.pathname !== "/admin/login") {
+        window.location.href = "/admin/login";
+      }
     }
 
     const message =

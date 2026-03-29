@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { getPublicPosts } from "../../../../api/postApi";
+import { useLanguage } from "../../../../context/LanguageContext";
 import useLocalizedCopy from "../../../../hooks/useLocalizedCopy";
 
 const copy = {
@@ -27,6 +28,7 @@ function formatDate(value, locale) {
 }
 
 export default function LatestPost() {
+  const { language } = useLanguage();
   const t = useLocalizedCopy(copy);
 
   const [post, setPost] = useState(null);
@@ -65,9 +67,7 @@ export default function LatestPost() {
     };
   }, []);
 
-  const dateLocale = useMemo(() => {
-    return t.viewAll === "View all" ? "en-US" : "ja-JP";
-  }, [t.viewAll]);
+  const dateLocale = language === "en" ? "en-US" : "ja-JP";
 
   return (
     <div className="relative z-10 mx-auto mt-6 hidden w-[90%] flex-col items-center justify-between gap-2 border-t border-neutral-200 bg-white px-4 py-3 text-xs text-(--text-color) md:flex md:flex-row md:px-10 md:text-sm lg:px-16">
@@ -78,13 +78,17 @@ export default function LatestPost() {
 
         <p className="ml-2 truncate md:border-l md:border-gray-300 md:pl-4">
           {loading ? (
-            <span className="text-[10px] text-(--text-color) lg:text-sm">{t.loading}</span>
+            <span className="flex items-center gap-3" aria-label={t.loading}>
+              <span className="h-3 w-20 animate-pulse rounded bg-slate-200" aria-hidden="true" />
+              <span className="h-3 w-56 animate-pulse rounded bg-slate-200" aria-hidden="true" />
+            </span>
           ) : error ? (
             <span className="text-[10px] text-red-600 lg:text-sm">{error}</span>
           ) : post ? (
             <Link
               to={`/posts/${post.id}`}
-              className="bg-[linear-gradient(var(--color-primary),var(--color-primary))] bg-[length:0%_1px] bg-[center_bottom] bg-no-repeat text-[10px] text-(--text-color) transition-all duration-300 ease-in-out hover:bg-[length:100%_1px] hover:text-(--color-dark) lg:text-sm"
+              title={post.title}
+              className="bg-[linear-gradient(var(--color-primary),var(--color-primary))] bg-size-[0%_1px] bg-position-[center_bottom] bg-no-repeat text-[10px] text-(--text-color) transition-all duration-300 ease-in-out hover:bg-size-[100%_1px] hover:text-(--color-dark) lg:text-sm"
             >
               {post.title}
             </Link>
@@ -97,7 +101,7 @@ export default function LatestPost() {
       <div className="shrink-0 md:border-l md:border-gray-300 md:pl-4">
         <Link
           to="/posts"
-          className="inline-flex items-center gap-1 bg-[linear-gradient(var(--color-primary),var(--color-primary))] bg-[length:0%_1px] bg-[center_bottom] bg-no-repeat text-[10px] text-(--color-primary) transition-all duration-300 ease-in-out hover:bg-[length:100%_1px] hover:text-[#06a4d4] sm:text-xs"
+          className="inline-flex items-center gap-1 bg-[linear-gradient(var(--color-primary),var(--color-primary))] bg-size-[0%_1px] bg-position-[center_bottom] bg-no-repeat text-[10px] text-(--color-primary) transition-all duration-300 ease-in-out hover:bg-size-[100%_1px] hover:text-[#06a4d4] sm:text-xs"
         >
           {t.viewAll} <FaArrowRightLong />
         </Link>

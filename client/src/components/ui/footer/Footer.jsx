@@ -10,7 +10,7 @@ const footerCopy = {
         slogan: "世界と日本をつなぐチカラ",
         address: "〒105-0011 東京都新宿区百人町1-20-26バラードハイムムサシノビル806",
         links: {
-            greeting: "会社概要",
+            greeting: "挨拶",
             register: "求人情報",
             service: "サービス",
             education: "教育業務",
@@ -19,7 +19,7 @@ const footerCopy = {
             contact: "お問い合わせ",
             contactCompany: "企業様向け",
             contactCandidate: "求職者様向け",
-            contactItSolution: "ITソリューション向け",
+            contactItSolution: "ITソリューション",
             privacy: "プライバシーポリシー",
         },
     },
@@ -52,11 +52,14 @@ export default function Footer() {
                 <div className=''>
                     <div className='flex'>
                         <div className="w-20 h-20 mr-4">
-                            <img
-                                src={Logo}
-                                alt="logo"
-                                className="object-cover rounded-xl w-full h-auto"
-                            />
+                        {/* logo */}
+                            <Link to="/" aria-label="Go to home">
+                                <img
+                                    src={Logo}
+                                    alt="logo"
+                                    className="object-cover rounded-xl w-full h-auto"
+                                />
+                            </Link>
                         </div>
                         <div>
                             <h6 className="font-bold text-(--color-text-secondary)">{t.slogan}</h6>
@@ -74,7 +77,7 @@ export default function Footer() {
                 <div className=''>
                     <div className=''>
                         <ul className='flex flex-wrap gap-x-4 gap-y-2 xl:justify-end'>
-                            <li><Link to="/company_profile" className="nav-link transition-all duration-200 ease-in-out">{t.links.greeting}</Link></li>
+                            <li><Link to="/greeting" className="nav-link transition-all duration-200 ease-in-out">{t.links.greeting}</Link></li>
                             <li><Link to="/jobs" className="nav-link transition-all duration-200 ease-in-out">{t.links.register}</Link></li>
                             <li><Link to="/career_academy" className="nav-link transition-all duration-200 ease-in-out">{t.links.service}</Link></li>
                             <li><Link to="/career_academy" className="nav-link transition-all duration-200 ease-in-out">{t.links.education}</Link></li>

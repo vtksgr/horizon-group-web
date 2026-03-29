@@ -1,17 +1,26 @@
-const TOKEN_KEY = "admin_token";
+import api from "../../../api/axios";
 
-export function setAdminToken(token) {
-    localStorage.setItem(TOKEN_KEY, token);
-}
+let adminSessionCache = null;
 
-export function getAdminToken() {
-    return localStorage.getItem(TOKEN_KEY);
+export function setAdminAuthenticated(admin) {
+    adminSessionCache = admin || { authenticated: true };
 }
 
 export function clearAdminToken() {
-    localStorage.removeItem(TOKEN_KEY);
+    adminSessionCache = null;
 }
 
 export function isAdminAuthenticated() {
-    return Boolean(getAdminToken());
+    return Boolean(adminSessionCache);
+}
+
+export async function fetchAdminSession() {
+    try {
+        const { data } = await api.get("/api/admin/session");
+        adminSessionCache = data?.admin || { authenticated: true };
+        return adminSessionCache;
+    } catch (error) {
+        adminSessionCache = null;
+        return null;
+    }
 }

@@ -242,7 +242,7 @@ export default function PostForm() {
                     <button
                       type="submit"
                       disabled={loading || loadingCategories || !categoryOptions.length}
-                      className="w-full rounded-lg bg-[var(--color-primary)] px-4 py-3 font-medium text-white transition hover:bg-[var(--color-primary-hover)] disabled:opacity-60"
+                      className="w-full rounded-lg bg-(--color-primary) px-4 py-3 font-medium text-white transition hover:bg-(--color-primary-hover) disabled:opacity-60"
                     >
                       {loading
                         ? "Saving..."

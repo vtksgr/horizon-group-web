@@ -1,32 +1,46 @@
+import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
-import Home from "../pages/public/home/Home";
-import Careers from "../pages/public/services/Careers";
-import CompanyProfile from "../pages/public/profile/CompanyProfile";
-import PrivacyPolicy from "../pages/public/policies/PrivacyPolicy";
-import Faq from "../pages/public/services/Faq";
-import Jobs from "../pages/public/services/Jobs";
-import Post from "../pages/public/post/Post";
-import PostDetail from "../pages/public/post/PostDetail";
-import CompanyContact from "../pages/public/contacts/CompanyContact";
-import CandidateContact from "../pages/public/contacts/CandidateContact";
-import ItSolutionContact from "../pages/public/contacts/ItSolutionContact";
-import ItSolution from "../pages/public/services/ItSolution";
+import PublicRouteSkeleton from "../components/ui/loading/PublicRouteSkeleton";
+
+const Home = lazy(() => import("../pages/public/home/Home"));
+const Careers = lazy(() => import("../pages/public/services/Careers"));
+const CompanyProfile = lazy(() => import("../pages/public/profile/CompanyProfile"));
+const PrivacyPolicy = lazy(() => import("../pages/public/policies/PrivacyPolicy"));
+const Faq = lazy(() => import("../pages/public/services/Faq"));
+const Jobs = lazy(() => import("../pages/public/services/Jobs"));
+const Post = lazy(() => import("../pages/public/post/Post"));
+const PostDetail = lazy(() => import("../pages/public/post/PostDetail"));
+const CompanyContact = lazy(() => import("../pages/public/contacts/CompanyContact"));
+const CandidateContact = lazy(() => import("../pages/public/contacts/CandidateContact"));
+const ItSolutionContact = lazy(() => import("../pages/public/contacts/ItSolutionContact"));
+const ItSolution = lazy(() => import("../pages/public/services/ItSolution"));
+const Greeting = lazy(() => import("../pages/public/profile/Greeting"));
+const NotFound = lazy(() => import("../pages/public/errors/NotFound"));
+
+function withSuspense(element) {
+	return (
+		<Suspense fallback={<PublicRouteSkeleton />}>
+			{element}
+		</Suspense>
+	);
+}
 
 export const publicRoutes = (
 	<Route element={<PublicLayout />}>
-		<Route path="/" element={<Home />} />
-		<Route path="/career_academy" element={<Careers />} />
-		<Route path="/company_profile" element={<CompanyProfile />} />
-		<Route path="/privacy_policy" element={<PrivacyPolicy />} />
-		<Route path="/faq" element={<Faq />} />
-		<Route path="/jobs" element={<Jobs />} />
-		<Route path="/posts" element={<Post />} />
-		<Route path="/posts/:id" element={<PostDetail />} />
-        <Route path="/contact_company" element={<CompanyContact />} />
-		<Route path="/contact_candidate" element={<CandidateContact />} />
-		<Route path="/contact_it_solution" element={<ItSolutionContact />} />
-		<Route path="/it_solution" element={<ItSolution />} />
-
+		<Route path="/" element={withSuspense(<Home />)} />
+		<Route path="/career_academy" element={withSuspense(<Careers />)} />
+		<Route path="/company_profile" element={withSuspense(<CompanyProfile />)} />
+		<Route path="/greeting" element={withSuspense(<Greeting />)} />
+		<Route path="/privacy_policy" element={withSuspense(<PrivacyPolicy />)} />
+		<Route path="/faq" element={withSuspense(<Faq />)} />
+		<Route path="/jobs" element={withSuspense(<Jobs />)} />
+		<Route path="/posts" element={withSuspense(<Post />)} />
+		<Route path="/posts/:id" element={withSuspense(<PostDetail />)} />
+        <Route path="/contact_company" element={withSuspense(<CompanyContact />)} />
+		<Route path="/contact_candidate" element={withSuspense(<CandidateContact />)} />
+		<Route path="/contact_it_solution" element={withSuspense(<ItSolutionContact />)} />
+		<Route path="/it_solution" element={withSuspense(<ItSolution />)} />
+		<Route path="*" element={withSuspense(<NotFound />)} />
 	</Route>
 );

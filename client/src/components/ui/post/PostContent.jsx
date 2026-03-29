@@ -1,26 +1,22 @@
-import DOMPurify from "dompurify";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-function looksLikeHtml(value) {
-    return /<\/?[a-z][\s\S]*>/i.test(String(value || ""));
+// Convert [youtube]...[/youtube] shortcodes to iframe embeds
+function convertYouTubeShortcodesToIframes(text) {
+    if (!text) return text;
+    // Match [youtube]...[/youtube] and extract the link
+    return text.replace(/\[youtube\](.+?)\[\/youtube\]/gi, (match, url) => {
+        // Extract video ID from various YouTube URL formats
+        const ytMatch = url.match(/(?:youtube\.com\/(?:.*v=|v\/|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+        if (!ytMatch) return match; // If not a valid YouTube link, leave as is
+        const videoId = ytMatch[1];
+        return `\n<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>\n`;
+    });
 }
 
 export default function PostContent({ content, className = "" }) {
-    const safeContent = DOMPurify.sanitize(String(content || ""), {
-        USE_PROFILES: { html: true },
-    });
-
-    if (looksLikeHtml(content)) {
-        return (
-            <div
-                className={["post-rich-content", className].filter(Boolean).join(" ")}
-                dangerouslySetInnerHTML={{ __html: safeContent || "<p>-</p>" }}
-            />
-        );
-    }
-
+    const processedContent = convertYouTubeShortcodesToIframes(content);
     return (
         <div className={["post-rich-content", className].filter(Boolean).join(" ")}>
             <ReactMarkdown
@@ -37,12 +33,19 @@ export default function PostContent({ content, className = "" }) {
                     ul: (props) => <ul className="mt-4 list-disc space-y-2 pl-6 text-sm leading-7 text-slate-800" {...props} />,
                     ol: (props) => <ol className="mt-4 list-decimal space-y-2 pl-6 text-sm leading-7 text-slate-800" {...props} />,
                     li: (props) => <li className="pl-1" {...props} />,
-                    img: (props) => <img className="mt-6 max-h-105 w-full rounded-xl border border-slate-200 object-cover" {...props} />,
+                    img: (props) => <img className="mt-6 max-h-105 w-full rounded-xl border border-slate-200 object-cover" loading="lazy" {...props} />,
                     del: (props) => <del className="text-slate-500" {...props} />,
                     ins: (props) => <ins className="decoration-sky-500 decoration-2 underline-offset-4" {...props} />,
+                    iframe: (props) => (
+                        <iframe
+                            {...props}
+                            className="mt-6 w-full rounded-xl border border-slate-200"
+                            allowFullScreen
+                        />
+                    ),
                 }}
             >
-                {content || "-"}
+                {processedContent || "-"}
             </ReactMarkdown>
         </div>
     );

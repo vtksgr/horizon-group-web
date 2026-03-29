@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { z } from "zod";
 import { submitCandidateContact } from "../../../api/contactApi";
 import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
 
@@ -25,6 +26,29 @@ const inquiryOptions = [
 ];
 
 const inputClassName = "w-full rounded-sm border border-gray-300 px-3 py-2 placeholder:text-sm transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-slate-400";
+
+const CandidateContactSchema = z.object({
+    firstName: z.string().trim().min(1, "名を入力してください。"),
+    lastName: z.string().trim().min(1, "姓を入力してください。"),
+    email: z.string().trim().min(1, "メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
+    phoneNumber: z.string().trim().min(1, "電話番号を入力してください。"),
+    postalCode: z.string().trim().min(1, "郵便番号を入力してください。"),
+    address: z.string().trim().min(1, "住所を入力してください。"),
+    inquiryType: z.string().trim().min(1, "お問い合わせ種類を選択してください。"),
+    message: z.string().trim().min(1, "お問い合わせ内容を入力してください。"),
+    resume: z
+        .instanceof(File)
+        .refine((file) => file.size <= 5 * 1024 * 1024, "履歴書は5MB以下のPDFファイルをアップロードしてください。")
+        .refine((file) => file.type === "application/pdf", "履歴書はPDFファイルのみアップロードできます。")
+        .optional()
+        .nullable(),
+});
+
+function normalizeFormData(formData) {
+    return Object.fromEntries(
+        Object.entries(formData).map(([key, value]) => [key, typeof value === "string" ? value.trim() : value])
+    );
+}
 
 function RequiredBadge() {
     return <span className="ml-1 text-red-500">必須</span>;
@@ -59,56 +83,30 @@ export default function CandidateContact() {
         setError("");
         setSuccess("");
 
-        if (!formData.firstName.trim() || !formData.lastName.trim()) {
-            setError("姓名を入力してください。");
-            return;
-        }
+        const normalizedFormData = normalizeFormData(formData);
+        const validationResult = CandidateContactSchema.safeParse(normalizedFormData);
 
-        if (!formData.email.trim()) {
-            setError("メールアドレスを入力してください。");
-            return;
-        }
-
-        if (!formData.phoneNumber.trim()) {
-            setError("電話番号を入力してください。");
-            return;
-        }
-
-        if (!formData.postalCode.trim() || !formData.address.trim()) {
-            setError("郵便番号と住所を入力してください。");
-            return;
-        }
-
-        if (!formData.inquiryType) {
-            setError("お問い合わせ種類を選択してください。");
-            return;
-        }
-
-        if (!formData.message.trim()) {
-            setError("お問い合わせ内容を入力してください。");
-            return;
-        }
-
-        if (formData.resume && !String(formData.resume.name || "").toLowerCase().endsWith(".pdf")) {
-            setError("履歴書はPDFファイルのみアップロードできます。");
+        if (!validationResult.success) {
+            setError(validationResult.error.issues[0]?.message || "入力内容を確認してください。");
             return;
         }
 
         try {
             setLoading(true);
+            const validatedData = validationResult.data;
 
             const payload = new FormData();
-            payload.append("firstName", formData.firstName.trim());
-            payload.append("lastName", formData.lastName.trim());
-            payload.append("email", formData.email.trim());
-            payload.append("phoneNumber", formData.phoneNumber.trim());
-            payload.append("postalCode", formData.postalCode.trim());
-            payload.append("address", formData.address.trim());
-            payload.append("inquiryType", formData.inquiryType);
-            payload.append("message", formData.message.trim());
+            payload.append("firstName", validatedData.firstName);
+            payload.append("lastName", validatedData.lastName);
+            payload.append("email", validatedData.email);
+            payload.append("phoneNumber", validatedData.phoneNumber);
+            payload.append("postalCode", validatedData.postalCode);
+            payload.append("address", validatedData.address);
+            payload.append("inquiryType", validatedData.inquiryType);
+            payload.append("message", validatedData.message);
 
-            if (formData.resume) {
-                payload.append("resume", formData.resume);
+            if (validatedData.resume) {
+                payload.append("resume", validatedData.resume);
             }
 
             await submitCandidateContact(payload);
@@ -302,6 +300,7 @@ export default function CandidateContact() {
                                 placeholder="お問い合わせ内容を入力してください。"
                                 disabled={loading}
                                 className="w-full rounded-md border border-gray-300 px-3 py-2 placeholder:text-sm transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-slate-400"
+                                required
                             />
                         </div>
 

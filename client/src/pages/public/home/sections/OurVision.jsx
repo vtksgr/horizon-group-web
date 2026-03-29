@@ -32,6 +32,8 @@ export default function OurVision() {
                         src={OurVisionImg}
                         alt="Our Vision"
                         className="object-cover rounded-xl w-full h-auto shadow-md"
+                        loading="lazy"
+                        decoding="async"
                     />
                 </div>
 
@@ -56,7 +58,7 @@ export default function OurVision() {
                     <div className="flex justify-start sm:justify-end">
                         <Link
                             to="/about"
-                            className="link text-[#0080FF] text-right hover:!text-[var(--color-primary)] inline-flex items-center gap-2"
+                            className="link inline-flex items-center gap-2 text-right text-[#0080FF] hover:text-(--color-primary)!"
                         >
                             {t.about} <FaArrowRight />
                         </Link>

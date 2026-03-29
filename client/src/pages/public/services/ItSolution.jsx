@@ -1,5 +1,9 @@
 ﻿import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
 import { Link } from "react-router-dom";
+import logo01 from "@assets/images/logo/testimonial-logo-01.svg";
+import logo02 from "@assets/images/logo/testimonial-logo-02.svg";
+import logo03 from "@assets/images/logo/testimonial-logo-03.svg";
+import logo04 from "@assets/images/logo/testimonial-logo-04.svg";
 import { HiLightBulb, HiDesktopComputer, HiUserGroup, HiClock, HiSupport, HiGlobeAlt, HiTerminal, HiColorSwatch, HiTrendingUp, HiDocumentText, HiViewGrid, HiChartBar, HiLightningBolt, HiArrowUp, HiShieldCheck, HiBadgeCheck } from "react-icons/hi";
 import { FaRocket } from "react-icons/fa";
 
@@ -9,6 +13,14 @@ const breadcrumbItems = [
 ];
 
 export default function ItSolution() {
+
+    const handleScrollToTestimonial = (event) => {
+        event.preventDefault();
+        document.getElementById("testimonial-section")?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    };
 
     return (
         <>
@@ -52,7 +64,7 @@ export default function ItSolution() {
                                     Free Consultation
                                 </Link>
                                 <Link
-                                    to="/posts"
+                                    to="/contact_it_solution"
                                     className="w-full sm:w-55 border border-(--color-primary) bg-white px-6 py-4 text-center text-(--color-dark) text-sm sm:text-base font-medium hover:bg-[#f2fbff] transition-colors"
                                 >
                                     Start Today
@@ -62,15 +74,32 @@ export default function ItSolution() {
 
                         <p className="mt-8 max-w-170 text-sm sm:text-base text-(--text-color) leading-relaxed">Websites, Web Apps, Digital Marketing & IT Support — Everything You Need in One Place.</p>
                     </div>
+                    {/* Testimonial link */}
+                    <div id="testimonial-section" className="mt-10 lg:mt-14 border-t border-(--color-border) pt-6 lg:pt-8">
+                        <div className="bg-(--color-dark) px-5 sm:px-6 lg:px-8 py-4 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
+                            <Link to="/posts" className="text-white text-[26px] sm:text-[34px] leading-none whitespace-nowrap">
+                                View Our Work
+                            </Link>
 
-                    <div className="mt-10 lg:mt-14 border-t border-(--color-border) pt-6 lg:pt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-                        <div className="flex items-center gap-4">
-                            <span className="w-8 h-8 rounded-full border border-(--color-primary)" />
-                            <span className="w-8 h-8 rounded-full border border-(--color-primary)" />
-                            <span className="w-8 h-8 rounded-full border border-(--color-primary)" />
-                            <span className="w-8 h-8 rounded-full border border-(--color-primary)" />
+                            <div className="flex items-center gap-1.5 sm:gap-2">
+                                <a href="https://horizongroup.co.jp/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-slate-50 border border-(--color-primary) flex items-center justify-center p-1.5 hover:border-(--color-primary)/70 transition-colors shrink-0">
+                                    <img src={logo01} alt="Client logo 1" className="w-full h-full object-contain" />
+                                </a>
+                                <a href="https://pokharatrading.jp/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-slate-50 border border-(--color-primary) flex items-center justify-center p-1.5 hover:border-(--color-primary)/70 transition-colors shrink-0">
+                                    <img src={logo02} alt="Client logo 2" className="w-full h-full object-contain" />
+                                </a>
+                                <a href="https://talbarahi.com/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-slate-50 border border-(--color-primary) flex items-center justify-center p-1.5 hover:border-(--color-primary)/70 transition-colors shrink-0">
+                                    <img src={logo03} alt="Client logo 3" className="w-full h-full object-contain" />
+                                </a>
+                                <a href="https://vtksgr.github.io/portfolio/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full bg-slate-50 border border-(--color-primary) flex items-center justify-center p-1.5 hover:border-(--color-primary)/70 transition-colors shrink-0">
+                                    <img src={logo04} alt="Client logo 4" className="w-full h-full object-contain" />
+                                </a>
+                            </div>
+
+                            <p className="text-slate-100 text-base sm:text-[20px] leading-tight lg:max-w-132.5">
+                                Helping startups, local businesses & growing companies succeed online.
+                            </p>
                         </div>
-                        <p className="text-xs sm:text-base text-(--text-color)">Helping startups, local businesses & growing companies succeed online.</p>
                     </div>
                 </div>
             </section>
@@ -413,7 +442,8 @@ export default function ItSolution() {
                             Free Consultation
                         </Link>
                         <Link
-                            to="/posts"
+                            to="#testimonial-section"
+                            onClick={handleScrollToTestimonial}
                             className="w-full sm:w-55 border border-(--color-primary) bg-white px-6 py-4 text-center text-(--color-dark) text-sm sm:text-base font-medium hover:bg-[#f2fbff] transition-colors"
                         >
                             View Our Work

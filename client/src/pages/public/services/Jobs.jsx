@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import api from "../../../api/axios";
+import JobCard from "../../../components/public/JobCard";
 import { useLanguage } from "../../../context/LanguageContext";
 import useLocalizedCopy from "../../../hooks/useLocalizedCopy";
 import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
@@ -52,23 +53,6 @@ const jobsText = {
     next: "Next",
   },
 };
-
-function formatDate(value, locale) {
-  if (!value) return "-";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "-";
-  return date.toLocaleDateString(locale);
-}
-
-function JobMeta({ label, value }) {
-  if (!value) return null;
-  return (
-    <div className="rounded-md bg-slate-50 px-3 py-2">
-      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{label}</p>
-      <p className="text-sm text-(--color-dark)">{value}</p>
-    </div>
-  );
-}
 
 export default function Jobs() {
   const { language } = useLanguage();
@@ -127,6 +111,22 @@ export default function Jobs() {
     return jobs.slice(start, end);
   }, [jobs, page]);
 
+  const visiblePages = useMemo(() => {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+    }
+
+    const start = Math.max(1, page - 2);
+    const end = Math.min(totalPages, page + 2);
+    const pages = new Set([1, totalPages]);
+
+    for (let pageNumber = start; pageNumber <= end; pageNumber += 1) {
+      pages.add(pageNumber);
+    }
+
+    return Array.from(pages).sort((left, right) => left - right);
+  }, [page, totalPages]);
+
   function goToPage(nextPage) {
     const clamped = Math.min(Math.max(nextPage, 1), totalPages);
     setPage(clamped);
@@ -165,48 +165,7 @@ export default function Jobs() {
           <>
             <div className="space-y-4">
               {pagedJobs.map((job) => (
-                <article key={job.id} className="rounded-xl border border-(--color-border) bg-(--color-background) p-5 shadow-sm md:p-6">
-                  <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                    <div>
-                      <h2 className="text-xl font-semibold text-(--color-dark)">{job.title || (language === "en" ? "Untitled Job" : "タイトル未設定")}</h2>
-                      <p className="mt-1 text-sm text-(--color-text-secondary)">{t.posted}: {formatDate(job.createdAt, dateLocale)}</p>
-                    </div>
-
-                    <span className="inline-flex w-fit rounded-full bg-(--color-primary)/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-(--color-primary)">
-                      {job.status === "URGENT_HIRE" ? t.urgent : t.vacancy}
-                    </span>
-                  </div>
-
-                  <div className="mt-4 grid gap-2 md:grid-cols-2">
-                    <JobMeta label={t.company} value={job.companyName} />
-                    <JobMeta label={t.employmentType} value={job.employmentType} />
-                    <JobMeta label={t.salary} value={job.salary} />
-                    <JobMeta label={t.location} value={job.location} />
-                    <JobMeta label={t.workHours} value={job.workHours} />
-                    <JobMeta label={t.holidays} value={job.holidays} />
-                  </div>
-
-                  {job.description ? (
-                    <div className="mt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{t.description}</p>
-                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-(--color-text-secondary)">{job.description}</p>
-                    </div>
-                  ) : null}
-
-                  {job.skillsRequired ? (
-                    <div className="mt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{t.skills}</p>
-                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-(--color-text-secondary)">{job.skillsRequired}</p>
-                    </div>
-                  ) : null}
-
-                  {job.interviewDetails ? (
-                    <div className="mt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-(--color-text-secondary)">{t.interview}</p>
-                      <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-(--color-text-secondary)">{job.interviewDetails}</p>
-                    </div>
-                  ) : null}
-                </article>
+                <JobCard key={job.id} job={job} labels={t} language={language} dateLocale={dateLocale} />
               ))}
             </div>
 
@@ -221,21 +180,33 @@ export default function Jobs() {
                   {t.previous}
                 </button>
 
-                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNumber) => (
-                  <button
-                    key={pageNumber}
-                    type="button"
-                    onClick={() => goToPage(pageNumber)}
-                    className={[
-                      "rounded-md border px-3 py-1.5 text-sm",
-                      pageNumber === page
-                        ? "border-(--color-primary) bg-(--color-primary) text-white"
-                        : "border-(--color-border) bg-(--color-background) text-(--color-dark)",
-                    ].join(" ")}
-                  >
-                    {pageNumber}
-                  </button>
-                ))}
+                {visiblePages.map((pageNumber, index) => {
+                  const previousPage = visiblePages[index - 1];
+                  const shouldShowGap = previousPage && pageNumber - previousPage > 1;
+
+                  return (
+                    <div key={pageNumber} className="contents">
+                      {shouldShowGap ? (
+                        <span className="px-1 text-sm text-(--color-text-secondary)" aria-hidden="true">
+                          ...
+                        </span>
+                      ) : null}
+
+                      <button
+                        type="button"
+                        onClick={() => goToPage(pageNumber)}
+                        className={[
+                          "rounded-md border px-3 py-1.5 text-sm",
+                          pageNumber === page
+                            ? "border-(--color-primary) bg-(--color-primary) text-white"
+                            : "border-(--color-border) bg-(--color-background) text-(--color-dark)",
+                        ].join(" ")}
+                      >
+                        {pageNumber}
+                      </button>
+                    </div>
+                  );
+                })}
 
                 <button
                   type="button"

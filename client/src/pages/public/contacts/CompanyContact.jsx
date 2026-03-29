@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { z } from "zod";
 import { submitCompanyContact } from "../../../api/contactApi";
 import Breadcrumbs from "../../../components/ui/breadcrumbs/Breadcrumbs";
 
@@ -34,6 +35,25 @@ const inquiryOptions = [
 
 const inputClassName = "w-full rounded-sm border border-gray-300 px-3 py-2 placeholder:text-sm transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-slate-400";
 
+const CompanyContactSchema = z.object({
+    firstName: z.string().trim().min(1, "名を入力してください。"),
+    lastName: z.string().trim().min(1, "姓を入力してください。"),
+    email: z.string().trim().min(1, "メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
+    phoneNumber: z.string().trim().min(1, "電話番号を入力してください。"),
+    postalCode: z.string().trim().min(1, "郵便番号を入力してください。"),
+    address: z.string().trim().min(1, "会社所在地を入力してください。"),
+    companyName: z.string().trim().min(1, "会社名を入力してください。"),
+    position: z.string().trim().min(1, "役職を選択してください。"),
+    inquiryType: z.string().trim().min(1, "お問い合わせ種類を選択してください。"),
+    message: z.string().trim().min(1, "お問い合わせ内容を入力してください。"),
+});
+
+function normalizeFormData(formData) {
+    return Object.fromEntries(
+        Object.entries(formData).map(([key, value]) => [key, typeof value === "string" ? value.trim() : value])
+    );
+}
+
 function RequiredBadge() {
     return <span className="ml-1 text-red-500">必須</span>;
 }
@@ -60,49 +80,17 @@ export default function CompanyContact() {
         setError("");
         setSuccess("");
 
-        if (!formData.firstName.trim() || !formData.lastName.trim()) {
-            setError("姓名を入力してください。");
-            return;
-        }
+        const normalizedFormData = normalizeFormData(formData);
+        const validationResult = CompanyContactSchema.safeParse(normalizedFormData);
 
-        if (!formData.email.trim()) {
-            setError("メールアドレスを入力してください。");
-            return;
-        }
-
-        if (!formData.phoneNumber.trim()) {
-            setError("電話番号を入力してください。");
-            return;
-        }
-
-        if (!formData.postalCode.trim() || !formData.address.trim()) {
-            setError("郵便番号と会社所在地を入力してください。");
-            return;
-        }
-
-        if (!formData.companyName.trim()) {
-            setError("会社名を入力してください。");
-            return;
-        }
-
-        if (!formData.position) {
-            setError("役職を選択してください。");
-            return;
-        }
-
-        if (!formData.inquiryType) {
-            setError("お問い合わせ種類を選択してください。");
-            return;
-        }
-
-        if (!formData.message.trim()) {
-            setError("お問い合わせ内容を入力してください。");
+        if (!validationResult.success) {
+            setError(validationResult.error.issues[0]?.message || "入力内容を確認してください。");
             return;
         }
 
         try {
             setLoading(true);
-            await submitCompanyContact(formData);
+            await submitCompanyContact(validationResult.data);
             setSuccess("送信が完了しました。担当者よりご連絡いたします。");
             setFormData(initialForm);
         } catch (err) {
@@ -317,6 +305,7 @@ export default function CompanyContact() {
                                 placeholder="お問い合わせ内容を入力してください。"
                                 disabled={loading}
                                 className="w-full rounded-md border border-gray-300 px-3 py-2 placeholder:text-sm transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-slate-400"
+                                required
                             />
                         </div>
 

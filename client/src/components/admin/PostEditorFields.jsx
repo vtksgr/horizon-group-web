@@ -15,6 +15,7 @@ const toolbarButtons = [
     { label: "Ul", title: "Unordered list", command: "bulletList" },
     { label: "Ol", title: "Ordered list", command: "orderedList" },
     { label: "Li", title: "Paragraph", command: "paragraph" },
+    { label: "Video", title: "Add YouTube Video", command: "video" },
 ];
 
 const headingOptions = [
@@ -36,6 +37,14 @@ function normalizeEditorValue(value) {
     }
 
     return normalized;
+}
+
+function getYouTubeVideoId(url) {
+    const match = String(url || "").match(
+        /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([\w-]{11})/
+    );
+
+    return match ? match[1] : null;
 }
 
 export default function PostEditorFields({
@@ -113,6 +122,23 @@ export default function PostEditorFields({
             return;
         }
 
+        if (command === "video") {
+            const url = window.prompt("Paste YouTube video URL");
+            if (!url) return;
+            const videoId = getYouTubeVideoId(url);
+            if (!videoId) {
+                window.alert("Invalid YouTube URL");
+                return;
+            }
+
+            editor
+                .chain()
+                .focus()
+                .insertContent(`[youtube]https://www.youtube.com/watch?v=${videoId}[/youtube]`)
+                .run();
+            return;
+        }
+
         const chain = editor.chain().focus();
 
         switch (command) {
@@ -144,6 +170,7 @@ export default function PostEditorFields({
                 break;
         }
     }
+
 
     function handleHeadingChange(event) {
         if (disabled || !editor) return;
@@ -273,7 +300,7 @@ export default function PostEditorFields({
                                 title={button.title}
                                 className={[
                                     "rounded-md border px-3 py-1.5 text-xs font-medium transition disabled:cursor-not-allowed disabled:opacity-60",
-                                    isActive(button.command)
+                                    isActive(button.command) && button.command !== "video"
                                         ? "border-sky-600 bg-sky-600 text-white"
                                         : "border-sky-300 bg-white text-sky-700 hover:border-sky-400 hover:bg-sky-50",
                                 ].join(" ")}
