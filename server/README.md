@@ -551,7 +551,7 @@ For detailed endpoint documentation:
 
 ## License
 
-ISC © Horizon Group
+ISC © Horizon Group.
 
 ---
 
