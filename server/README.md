@@ -1,4 +1,4 @@
-# Horizon Group Backend API
+# Horizon Group Backend API.
 
 ## Overview
 
