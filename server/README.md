@@ -98,7 +98,7 @@ server/
 │   │
 │   └── schemas/               # (Placeholder for additional schemas)
 │
-├── package.json
+├── package.json.
 └── README.md
 ```
 
