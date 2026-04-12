@@ -116,12 +116,8 @@ export default function CompanyProfile() {
               <p className="md:ml-8">ダンギ ティラク</p>
             </li>
             <li className="flex flex-col md:flex-row py-8 text-sm">
-              <p className="w-32 min-w-fit font-semibold">{t.labels.coo}</p>
-              <p className="md:ml-8">スベディ サントス</p>
-            </li>
-            <li className="flex flex-col md:flex-row py-8 text-sm">
               <p className="w-32 min-w-fit font-semibold">{t.labels.url}</p>
-              <p className="md:ml-8">https://www.horizongroup.co.jp/</p>
+              <p className="md:ml-8">https://horizongroup.co.jp</p>
             </li>
             <li className="flex flex-col md:flex-row py-8 text-sm">
               <p className="w-32 min-w-fit font-semibold">{t.labels.email}</p>
