@@ -126,10 +126,10 @@ export default function ItSolution() {
                                     { icon: <HiSupport size={20} />, text: "No reliable tech support when critical things break" },
                                 ].map((item) => (
                                     <li key={item.text} className="flex items-center gap-4 bg-[#f5f6f7] px-6 py-4 rounded-md">
-                                        <span className="w-7 h-7 shrink-0 rounded bg-[#3d4247] flex items-center justify-center text-white">
+                                        <span className="w-7 h-7 shrink-0 rounded bg-[#e8eaec] flex items-center justify-center text-(--color-primary)">
                                             {item.icon}
                                         </span>
-                                        <span className="text-sm text-(--color-dark)">{item.text}</span>
+                                        <span className="text-sm text-(--color-text-secondary)">{item.text}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -184,7 +184,7 @@ export default function ItSolution() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
                             {
-                                icon: <HiGlobeAlt size={36} className="text-gray-400" />,
+                                icon: <HiGlobeAlt size={36} className="text-(--color-primary)" />,
                                 title: "Website & E-Commerce Development",
                                 items: [
                                     "WordPress websites that convert visitors",
@@ -193,7 +193,7 @@ export default function ItSolution() {
                                 ],
                             },
                             {
-                                icon: <HiTerminal size={36} className="text-gray-400" />,
+                                icon: <HiTerminal size={36} className="text-(--color-primary)" />,
                                 title: "Custom Web & App Development",
                                 items: [
                                     "React, Vue, Node.js development",
@@ -202,7 +202,7 @@ export default function ItSolution() {
                                 ],
                             },
                             {
-                                icon: <HiColorSwatch size={36} className="text-gray-400" />,
+                                icon: <HiColorSwatch size={36} className="text-(--color-primary)" />,
                                 title: "Design & Branding",
                                 items: [
                                     "Website UI/UX design",
@@ -211,7 +211,7 @@ export default function ItSolution() {
                                 ],
                             },
                             {
-                                icon: <HiTrendingUp size={36} className="text-gray-400" />,
+                                icon: <HiTrendingUp size={36} className="text-(--color-primary)" />,
                                 title: "Digital Marketing & SEO",
                                 items: [
                                     "SEO setup & optimization",
@@ -220,7 +220,7 @@ export default function ItSolution() {
                                 ],
                             },
                             {
-                                icon: <HiSupport size={36} className="text-gray-400" />,
+                                icon: <HiSupport size={36} className="text-(--color-primary)" />,
                                 title: "IT Support & Consulting",
                                 items: [
                                     "Website maintenance & updates",
@@ -229,7 +229,7 @@ export default function ItSolution() {
                                 ],
                             },
                             {
-                                icon: <HiDocumentText size={36} className="text-gray-400" />,
+                                icon: <HiDocumentText size={36} className="text-(--color-primary)" />,
                                 title: "Design & Print",
                                 items: [
                                     "Poster",
@@ -342,32 +342,32 @@ export default function ItSolution() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {[
                             {
-                                icon: <HiViewGrid size={28} className="text-gray-400" />,
+                                icon: <HiViewGrid size={28} className="text-(--color-primary)" />,
                                 title: "All-in-One Solution",
                                 desc: "No juggling multiple vendors. One team handles everything from design to deployment to marketing.",
                             },
                             {
-                                icon: <HiChartBar size={28} className="text-gray-400" />,
+                                icon: <HiChartBar size={28} className="text-(--color-primary)" />,
                                 title: "Business-Focused Approach",
                                 desc: "We don’t just build pretty sites — every decision is tied to your business outcomes and ROI.",
                             },
                             {
-                                icon: <HiLightningBolt size={28} className="text-gray-400" />,
+                                icon: <HiLightningBolt size={28} className="text-(--color-primary)" />,
                                 title: "Fast, Responsive Communication",
                                 desc: "You’ll always know what’s happening. Clear updates, no ghosting, no excuses.",
                             },
                             {
-                                icon: <HiArrowUp size={28} className="text-gray-400" />,
+                                icon: <HiArrowUp size={28} className="text-(--color-primary)" />,
                                 title: "Affordable & Scalable",
                                 desc: "Startup pricing with enterprise thinking. Solutions that grow as your business grows.",
                             },
                             {
-                                icon: <HiShieldCheck size={28} className="text-gray-400" />,
+                                icon: <HiShieldCheck size={28} className="text-(--color-primary)" />,
                                 title: "Long-Term Support",
                                 desc: "We’re here after launch. Ongoing maintenance, updates, and growth guidance built in.",
                             },
                             {
-                                icon: <HiBadgeCheck size={28} className="text-gray-400" />,
+                                icon: <HiBadgeCheck size={28} className="text-(--color-primary)" />,
                                 title: "Proven Track Record",
                                 desc: "200+ successful projects across industries. Our results speak for themselves.",
                             },
@@ -410,7 +410,7 @@ export default function ItSolution() {
                             { stat: "40%", label: "Client satisfaction rate", icon: <HiBadgeCheck size={18} className="text-white" /> },
                         ].map((item) => (
                             <div key={item.label} className="border border-[#c8e8f8] bg-[#eef7fd] rounded-xl p-6 flex flex-col items-center gap-4">
-                                <span className="w-8 h-8 rounded-full bg-[#b0b8c1] flex items-center justify-center">{item.icon}</span>
+                                <span className="w-8 h-8 rounded-full bg-(--color-dark) flex items-center justify-center">{item.icon}</span>
                                 <p className="font-black text-[32px] sm:text-[40px] text-(--color-primary) leading-none">{item.stat}</p>
                                 <p className="text-xs sm:text-sm text-(--color-text-secondary) text-center leading-snug">{item.label}</p>
                             </div>

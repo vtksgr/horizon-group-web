@@ -88,7 +88,7 @@ export default function ItSolutionContact() {
 
     return (
         <>
-            <section className="w-full mt-48">
+            <section className="w-full mt-32">
                 <div className="md:w-[75%] mx-auto px-7 lg:px-0 pb-9 page_title">
                     <h1 className="font-semibold">CONTACT</h1>
                     <p className="font-semibold">ITソリューションに関するお問い合わせ</p>

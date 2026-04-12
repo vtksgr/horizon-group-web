@@ -15,3 +15,6 @@ coverage/
 *.pfx
 *.crt
 *.cer
+CLIENT_WORST_CASE_ANALYSIS.md
+PROJECT_STRUCTURE.md
+AGENTS.md
