@@ -15,9 +15,16 @@ import postRoutes from "./routes/post.route.js";
 
 const app = express();
 
+function normalizeOrigin(value) {
+  return String(value || "")
+    .trim()
+    .replace(/\/+$/, "")
+    .toLowerCase();
+}
+
 const allowedOrigins = String(process.env.FRONTEND_ORIGINS || "")
   .split(",")
-  .map((origin) => origin.trim())
+  .map((origin) => normalizeOrigin(origin))
   .filter(Boolean);
 
 const googleMapsOrigins = ["https://www.google.com", "https://maps.google.com"];
@@ -53,10 +60,16 @@ app.use(
       // Allow non-browser tools / same-origin requests without Origin header
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
+      const normalizedOrigin = normalizeOrigin(origin);
+
+      if (allowedOrigins.includes(normalizedOrigin)) {
         return callback(null, true);
       }
 
+      logger.warn("cors_blocked_origin", {
+        origin: normalizedOrigin,
+        allowedOrigins,
+      });
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,

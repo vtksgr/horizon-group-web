@@ -4,6 +4,13 @@ import jwt from "jsonwebtoken";
 
 const ADMIN_AUTH_COOKIE = "admin_auth";
 
+function normalizeOrigin(value) {
+    return String(value || "")
+        .trim()
+        .replace(/\/+$/, "")
+        .toLowerCase();
+}
+
 function readCookie(req, cookieName) {
     const cookieHeader = String(req.headers.cookie || "");
 
@@ -65,11 +72,11 @@ export const requireTrustedAdminOrigin = (req, res, next) => {
 
     const allowedOrigins = String(process.env.FRONTEND_ORIGINS || "")
         .split(",")
-        .map((origin) => origin.trim())
+        .map((origin) => normalizeOrigin(origin))
         .filter(Boolean);
 
-    const origin = req.get("origin");
-    const referer = req.get("referer");
+    const origin = normalizeOrigin(req.get("origin"));
+    const referer = normalizeOrigin(req.get("referer"));
 
     const hasTrustedOrigin = origin && allowedOrigins.includes(origin);
     const hasTrustedReferer = referer && allowedOrigins.some((allowedOrigin) => referer.startsWith(allowedOrigin));
