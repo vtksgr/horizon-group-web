@@ -5,6 +5,7 @@ import tabletHeroImg from "@assets/images/common/tablet-hero-img.jpg";
 import smartphoneHeroImg from "@assets/images/common/smartphone-hero-img.jpg";
 import useLocalizedCopy from "../../../../hooks/useLocalizedCopy";
 import LatestPost from "./LatestPost";
+import "./HeroSection.css";
 
 const copy = {
   ja: {
@@ -47,14 +48,16 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 flex flex-1 items-center justify-center">
-        <div className="mt-8 text-center md:mt-16">
-          <p className="mb-2 text-[18px] leading-8 opacity-80 md:mb-2 md:text-[24px] md:leading-none lg:pl-16 lg:text-left lg:text-[24px] xl:text-[32px] 2xl:text-[48px]">
-            {t.tagline}
-          </p>
+        <div className="mt-8 flex flex-col items-center md:mt-16">
+          <div className="hero-copy inline-flex flex-col items-start">
+            <p className="hero-tagline mb-2 text-left opacity-80 md:mb-2">
+              {t.tagline}
+            </p>
 
-          <h1 className="mb-3 text-center text-[40px] font-black leading-none tracking-wide text-white md:mb-6 md:text-[80px] lg:text-[104px] xl:text-[136px] 2xl:text-[184px]">
-            HORIZON GROUP
-          </h1>
+            <h1 className="hero-title mb-3 text-left font-black text-white md:mb-6">
+              HORIZON GROUP
+            </h1>
+          </div>
 
           <p className="mx-auto mb-8 w-[96%] text-center text-[12px] leading-6 md:w-[80%] md:text-[20px] md:leading-8 2xl:w-[60%] 2xl:leading-loose">
             {t.description}
