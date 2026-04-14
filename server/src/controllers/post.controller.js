@@ -4,13 +4,29 @@ import { createPostSchema, updatePostSchema } from "../validators/post.validator
 import { uploadPostBanner } from "../services/postMedia.service.js";
 import logger from "../utils/logger.js";
 
+const DEFAULT_POST_CATEGORIES = ["news", "notice"];
+
+async function ensureDefaultPostCategories() {
+    await prisma.$transaction(
+        DEFAULT_POST_CATEGORIES.map((name) =>
+            prisma.category.upsert({
+                where: { name },
+                update: {},
+                create: { name },
+            })
+        )
+    );
+
+    return prisma.category.findMany({
+        orderBy: { name: "asc" },
+        select: { id: true, name: true },
+    });
+}
+
 // GET POST CATEGORIES (admin)
 export const getPostCategories = async (req, res) => {
     try {
-        const categories = await prisma.category.findMany({
-            orderBy: { name: "asc" },
-            select: { id: true, name: true },
-        });
+        const categories = await ensureDefaultPostCategories();
 
         logger.info("admin_post_categories_viewed", {
             adminId: req.admin?.id || null,

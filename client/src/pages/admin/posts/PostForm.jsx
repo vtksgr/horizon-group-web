@@ -99,6 +99,7 @@ export default function PostForm() {
     async function loadCategories() {
       try {
         setLoadingCategories(true);
+        setPageError("");
         const result = await getAdminPostCategories();
         const rows = Array.isArray(result?.data) ? result.data : [];
         const options = rows.map((row) => ({
@@ -108,6 +109,9 @@ export default function PostForm() {
 
         if (isMounted) {
           setCategoryOptions(options);
+          if (!options.length) {
+            setPageError("No post categories are available. Please refresh and try again.");
+          }
         }
       } catch (error) {
         if (isMounted) {

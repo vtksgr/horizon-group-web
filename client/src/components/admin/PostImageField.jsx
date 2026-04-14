@@ -7,6 +7,9 @@ export default function PostImageField({
     return (
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <h3 className="text-sm font-semibold text-slate-900">Featured Image</h3>
+            <p className="mt-1 text-sm text-slate-500">
+                Optional. You can publish this post without uploading an image.
+            </p>
 
             <div className="mt-4">
                 {previewUrl ? (
