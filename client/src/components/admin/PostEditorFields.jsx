@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
-import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
 
 const toolbarButtons = [
@@ -60,13 +58,13 @@ export default function PostEditorFields({
                 heading: {
                     levels: [2, 3, 4],
                 },
+                link: {
+                    autolink: true,
+                    openOnClick: false,
+                    defaultProtocol: "https",
+                },
+                underline: {},
             }),
-            Link.configure({
-                autolink: true,
-                openOnClick: false,
-                defaultProtocol: "https",
-            }),
-            Underline,
             Placeholder.configure({
                 placeholder: "Write your post content here...",
             }),
