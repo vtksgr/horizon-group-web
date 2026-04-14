@@ -8,7 +8,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 const footerCopy = {
     ja: {
         slogan: "世界と日本をつなぐチカラ",
-        address: "〒105-0011 東京都新宿区百人町1-20-26バラードハイムムサシノビル806",
+        address: "〒169-0073 東京都新宿区百人町1-20-26バラードハイムムサシノビル806",
         links: {
             greeting: "挨拶",
             register: "求人情報",
@@ -25,7 +25,7 @@ const footerCopy = {
     },
     en: {
         slogan: "Connecting Japan with the world",
-        address: "1-20-26 Hyakuninchō, Shinjuku-ku, Tokyo 105-0011, Ballade Heim Musashino Building 806",
+        address: "1-20-26 Hyakuninchō, Shinjuku-ku, Tokyo 169-0073, Ballade Heim Musashino Building 806",
         links: {
             greeting: "Company",
             register: "Jobs",
